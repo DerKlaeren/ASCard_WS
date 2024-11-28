@@ -98,7 +98,7 @@ logger.error(new Error('Error as info'));
 
 
 
-
+// routes
 const bodyParser = require("body-parser"),
   swaggerJsdoc = require("swagger-jsdoc"),
   swaggerUi = require("swagger-ui-express");
@@ -133,7 +133,7 @@ app.use("/games", require("./routes/games"));
 
 
 
-
+// DB
 
 require('dotenv').config()
 
@@ -182,12 +182,24 @@ function get_contacts(conn) {
 }
 
 
-//app.get('/', (req, res) => {
-//	main();
-//	res.send('Hello World! Aber sowas von! yeah AGAIN!');
-//});
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Swagger
+// https://blog.logrocket.com/documenting-express-js-api-swagger/
 
 const options = {
   definition: {
@@ -223,6 +235,19 @@ app.use(
   swaggerUi.setup(specs, { explorer: true })
 );
 
+
+
+
+
+
+
+
+
+
+//app.get('/', (req, res) => {
+//	main();
+//	res.send('Hello World! Aber sowas von! yeah AGAIN!');
+//});
 
 app.listen(port, () => {
   console.log(`Web service listening at http://localhost:${port}`);
