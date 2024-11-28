@@ -193,24 +193,24 @@ const options = {
   definition: {
     openapi: "3.1.0",
     info: {
-      title: "LogRocket Express API with Swagger",
+      title: "ASCard Web API",
       version: "0.1.0",
       description:
-        "This is a simple CRUD API application made with Express and documented with Swagger",
+        "Access game data from ASCard games",
       license: {
-        name: "MIT",
-        url: "https://spdx.org/licenses/MIT.html",
+        name: "Apache 2.0",
+        url: "https://spdx.org/licenses/Apache-2.0.html",
       },
       contact: {
-        name: "LogRocket",
-        url: "https://logrocket.com",
-        email: "info@email.com",
+        name: "ASCard.net",
+        url: "https://www.ascard.net",
+        email: "info@ascard.net",
       },
     },
     servers: [
-      {
-        url: "http://localhost:3000",
-      },
+      //{
+      //  url: "http://localhost:3000",
+      //},
     ],
   },
   apis: ["./routes/*.js"],
