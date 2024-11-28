@@ -104,10 +104,6 @@ const bodyParser = require("body-parser"),
   swaggerUi = require("swagger-ui-express");
 
 
-var express = require("express"),
-  bodyParser = require("body-parser");
-
-
 app.use(
   bodyParser.urlencoded({
     extended: true,
