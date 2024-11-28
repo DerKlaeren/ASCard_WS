@@ -14,49 +14,7 @@ const port = 3000;
 
 
 
-require('dotenv').config()
 
-const {
-  DB_HOST = 'host',
-  DB_USER = 'user',
-  DB_PASSWORD = 'password',
-  DATABASE = 'db'
-} = process.env
-
-const mariadb = require("mariadb");
-
-// Main function
-async function main() {
-   let conn;
-
-   try {
-      conn = await mariadb.createConnection({
-     host: DB_HOST, 
-     user: DB_USER, 
-     password: DB_PASSWORD,
-     database: DATABASE
-      });
-
-      // Use Connection to get contacts data
-      var rows = await get_contacts(conn);
-
-      //Print list of contacts
-      for (i = 0, len = rows.length; i < len; i++) {
-         console.log(`${rows[i].a} ${rows[i].b} <${rows[i].c}>`);
-      }
-   } catch (err) {
-      // Manage Errors
-      console.log(err);
-   } finally {
-      // Close Connection
-      if (conn) conn.close();
-   }
-}
-
-//Get list of contacts
-function get_contacts(conn) {
-   return conn.query("SELECT a, b, c FROM ascard.test");
-}
 
 
 
@@ -138,7 +96,51 @@ logger.error(new Error('Error as info'));
 
 
 
+require('dotenv').config()
 
+const {
+  DB_HOST = 'host',
+  DB_USER = 'user',
+  DB_PASSWORD = 'password',
+  DATABASE = 'db'
+} = process.env
+
+logger.info(DATABASE);
+
+const mariadb = require("mariadb");
+
+// Main function
+async function main() {
+   let conn;
+
+   try {
+      conn = await mariadb.createConnection({
+     host: DB_HOST, 
+     user: DB_USER, 
+     password: DB_PASSWORD,
+     database: DATABASE
+      });
+
+      // Use Connection to get contacts data
+      var rows = await get_contacts(conn);
+
+      //Print list of contacts
+      for (i = 0, len = rows.length; i < len; i++) {
+         console.log(`${rows[i].a} ${rows[i].b} <${rows[i].c}>`);
+      }
+   } catch (err) {
+      // Manage Errors
+      console.log(err);
+   } finally {
+      // Close Connection
+      if (conn) conn.close();
+   }
+}
+
+//Get list of contacts
+function get_contacts(conn) {
+   return conn.query("SELECT a, b, c FROM ascard.test");
+}
 
 
 app.get('/', (req, res) => {
