@@ -187,10 +187,10 @@ function get_contacts(conn) {
 }
 
 
-app.get('/', (req, res) => {
-	main();
-	res.send('Hello World! Aber sowas von! yeah AGAIN!');
-});
+//app.get('/', (req, res) => {
+//	main();
+//	res.send('Hello World! Aber sowas von! yeah AGAIN!');
+//});
 
 app.listen(port, () => {
   console.log(`Web service listening at http://localhost:${port}`);
