@@ -116,7 +116,7 @@ app.use(
 );
 app.use(bodyParser.json());
 
-app.use("/books", require("./routes/books"));
+app.use("/games", require("./routes/games"));
 
 
 
