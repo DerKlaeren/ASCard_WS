@@ -99,8 +99,7 @@ logger.error(new Error('Error as info'));
 
 
 
-const express = require("express"),
-  bodyParser = require("body-parser"),
+const bodyParser = require("body-parser"),
   swaggerJsdoc = require("swagger-jsdoc"),
   swaggerUi = require("swagger-ui-express");
 
