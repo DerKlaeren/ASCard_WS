@@ -198,7 +198,7 @@ function get_contacts(conn) {
 
 
 
-Swagger
+// Swagger
 // https://blog.logrocket.com/documenting-express-js-api-swagger/
 
 const options = {
