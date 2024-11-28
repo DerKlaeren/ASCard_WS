@@ -96,6 +96,50 @@ logger.error(new Error('Error as info'));
 
 
 
+
+
+
+const express = require("express"),
+  bodyParser = require("body-parser"),
+  swaggerJsdoc = require("swagger-jsdoc"),
+  swaggerUi = require("swagger-ui-express");
+
+
+var express = require("express"),
+  bodyParser = require("body-parser");
+
+
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
+app.use(bodyParser.json());
+
+app.use("/books", require("./routes/books"));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 require('dotenv').config()
 
 const {
