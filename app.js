@@ -145,7 +145,7 @@ function get_contacts(conn) {
 
 app.get('/', (req, res) => {
 	main();
-	res.send('Hello World! Aber sowas von!');
+	res.send('Hello World! Aber sowas von! yeah');
 });
 
 app.listen(port, () => {
