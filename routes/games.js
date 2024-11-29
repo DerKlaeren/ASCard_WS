@@ -9,7 +9,7 @@
  *       required:
  *         - owner
  *         - title
- *         - description
+ *         - background
  *         - era
  *         - yearInGame
  *         - accessCode
@@ -27,7 +27,7 @@
  *         title:
  *           type: string
  *           description: The title of the game
- *         description:
+ *         background:
  *           type: string
  *           description: Description of the game
  *         era:
@@ -62,7 +62,7 @@
  *         id: 543
  *         owner: 2
  *         title: Northwind Planetary Assault
- *         description: The planetary assault on Northwind by Clan Snow Raven
+ *         background: The planetary assault on Northwind by Clan Snow Raven
  *         era: CLAN INVASION
  *         yearInGame: 3052
  *         accessCode: xxx
@@ -191,13 +191,13 @@ router.get("/:id", function (req, res) {
 });
 
 router.post("/", function (req, res) {
-	const { owner, title, description, era, yearInGame, accessCode, locked, scheduled, started, finished } = req.body;
+	const { owner, title, background, era, yearInGame, accessCode, locked, scheduled, started, finished } = req.body;
 
 	let game = {
         id: games.length + 1,
-        owner: 2,
+        owner: owner,
         title: title,
-        description: description,
+        background: background,
 		era: era,
 		yearInGame: yearInGame,
         accessCode: accessCode,
@@ -219,13 +219,13 @@ router.put("/:id", function (req, res) {
 	});
 
 	if (game) {
-		const { owner, title, description, era, yearInGame, accessCode, locked, scheduled, started, finished } = req.body;
+		const { owner, title, background, era, yearInGame, accessCode, locked, scheduled, started, finished } = req.body;
 
 		let updated = {
 			id: game.id,
 			owner: owner !== undefined ? owner : game.owner,
 			title: title !== undefined ? title : game.title,
-			description: description !== undefined ? description : game.description,
+			background: background !== undefined ? background : game.background,
 			era: era !== undefined ? era : game.era,
 			yearInGame: yearInGame !== undefined ? yearInGame : game.yearInGame,
 			accessCode: accessCode !== undefined ? accessCode : game.accessCode,

@@ -3,7 +3,7 @@ const games = [
         id: 543,
         owner: 2,
         title: "Northwind Planetary Assault",
-        description: "The planetary assault on Northwind by Clan Snow Raven",
+        background: "The planetary assault on Northwind by Clan Snow Raven",
 		era: "CLAN INVASION",
 		yearInGame: "3052",
         accessCode: "*****",
