@@ -1,7 +1,7 @@
 const express = require('express'),
-  bodyParser = require("body-parser"),
-  swaggerJsdoc = require("swagger-jsdoc"),
-  swaggerUi = require("swagger-ui-express");
+  bodyParser = require('body-parser'),
+  swaggerJsdoc = require('swagger-jsdoc'),
+  swaggerUi = require('swagger-ui-express');
 
 const app = express();
 const port = 3000;
@@ -39,7 +39,7 @@ const fileRotateErrorTransport = new winston.transports.DailyRotateFile({
   maxFiles: '14d',
 });
 
-const { createLogger, format, transports } = require("winston");
+const { createLogger, format, transports } = require('winston');
 const logger = createLogger({
     level: 'info',
     format: format.combine(
@@ -135,7 +135,6 @@ app.use("/games", require("./routes/games"));
 
 
 // DB
-
 require('dotenv').config()
 
 const {
@@ -221,9 +220,9 @@ const options = {
       },
     },
     servers: [
-      {
-        url: "http://localhost:3000",
-      },
+      //{
+      //  url: "http://localhost:3000",
+      //},
     ],
   },
   apis: ["./routes/*.js"],

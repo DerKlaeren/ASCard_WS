@@ -71,6 +71,10 @@
  *         started: 2024-12-06T08:00:00.000Z
  *         finished: null
  *         createdAt: 2024-11-29T04:05:06.157Z
+ */
+
+/**
+ * @  swagger
  * tags:
  *   name: Game
  *   description: The ASCard game scoreboard API
