@@ -1,63 +1,174 @@
+// https://blog.logrocket.com/documenting-express-js-api-swagger/
+
 /**
  * @swagger
  * components:
  *   schemas:
- *     Book:
+ *     Game:
  *       type: object
  *       required:
+ *         - owner
  *         - title
- *         - author
+ *         - description
+ *         - era
+ *         - yearInGame
+ *         - accessCode
+ *         - locked
+ *         - scheduled
+ *         - started
  *         - finished
  *       properties:
  *         id:
  *           type: string
- *           description: The auto-generated id of the book
+ *           description: The auto-generated id of the game
+ *         owner:
+ *           type: string
+ *           description: The player this game is assigned to
  *         title:
  *           type: string
- *           description: The title of your book
- *         author:
+ *           description: The title of the game
+ *         description:
  *           type: string
- *           description: The book author
- *         finished:
+ *           description: Description of the game
+ *         era:
+ *           type: string
+ *           description: One of the eras ('STAR LEAGUE','SUCCESSION WARS','CLAN INVASION','CIVIL WAR','JIHAD','DARK AGE','ILCLAN')
+ *         yearInGame:
+ *           type: string
+ *           description: The year in the BTU timeline
+ *         accessCode:
+ *           type: string
+ *           description: Access code
+ *         locked:
  *           type: boolean
- *           description: Whether you have finished reading the book
+ *           description: Whether the game is locked (no one can join anymore)
+ *         scheduled:
+ *           type: string
+ *           format: date
+ *           description: When the game will start
+ *         started:
+ *           type: string
+ *           format: date 
+ *           description: Whether the game has been finished
+ *         finished:
+ *           type: string
+ *           format: date
+ *           description: Whether the game has been finished
  *         createdAt:
  *           type: string
  *           format: date
- *           description: The date the book was added
+ *           description: The date the game was added
  *       example:
- *         id: d5fE_asz
- *         title: The New Turing Omnibus
- *         author: Alexander K. Dewdney
- *         finished: false
- *         createdAt: 2020-03-10T04:05:06.157Z
+ *         id: 543
+ *         owner: 2
+ *         title: Northwind Planetary Assault
+ *         description: The planetary assault on Northwind by Clan Snow Raven
+ *         accessCode: *****
+ *         locked: true
+ *         scheduled: 2024-12-06T08:00:00.000Z
+ *         started: 2024-12-06T08:00:00.000Z
+ *         finished: null
+ *         createdAt: 2024-11-29T04:05:06.157Z
  */
 
 /**
  * @swagger
  * tags:
- *   name: Books
- *   description: The books managing API
- * /books:
+ *   name: Game
+ *   description: The ASCard game scoreboard API
+ * /games:
+ *   get:
+ *     summary: Lists all games
+ *     tags: [Games]
+ *     responses:
+ *       200:
+ *         description: The list of all games
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Game'
  *   post:
- *     summary: Create a new book
- *     tags: [Books]
+ *     summary: Create a new game
+ *     tags: [Games]
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Book'
+ *             $ref: '#/components/schemas/Game'
  *     responses:
  *       200:
- *         description: The created book.
+ *         description: The created game.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Book'
+ *               $ref: '#/components/schemas/Game'
  *       500:
- *         description: Some server error
- *
+ *         description: Server error
+ * /games/{id}:
+ *   get:
+ *     summary: Get the game by id
+ *     tags: [Games]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The game id
+ *     responses:
+ *       200:
+ *         description: The game response by id
+ *         contens:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Game'
+ *       404:
+ *         description: The game was not found
+ *   put:
+ *    summary: Update the game by the id
+ *    tags: [Games]
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: The game id
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/Game'
+ *    responses:
+ *      200:
+ *        description: The game was updated
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Game'
+ *      404:
+ *        description: The game was not found
+ *      500:
+ *        description: Server error
+ *   delete:
+ *     summary: Remove the game by id
+ *     tags: [Games]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The game id
+ *     responses:
+ *       200:
+ *         description: The game was deleted
+ *       404:
+ *         description: The game was not found
  */
 
 const express = require("express");
