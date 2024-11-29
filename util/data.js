@@ -1,39 +1,16 @@
-const books = [
+const games = [
 	{
-		id: 1,
-		title: "The Pragmatic Programmer",
-		author: "Andy Hunt / Dave Thomas",
-		finished: true,
-		createdAt: new Date(),
-	},
-	{
-		id: 2,
-		title: "Clean Code",
-		author: "Robert Cecil Martin",
-		finished: true,
-		createdAt: new Date(),
-	},
-	{
-		id: 3,
-		title: "The Art of Computer Programming",
-		author: "Donald Knuth",
-		finished: false,
-		createdAt: new Date(),
-	},
-	{
-		id: 4,
-		title: "Head First Design Patterns",
-		author: "Elisabeth Freeman / Kathy Sierra",
-		finished: true,
-		createdAt: new Date(),
-	},
-	{
-		id: 5,
-		title: "JavaScript: The Good Parts",
-		author: "Douglas Crockford",
-		finished: false,
-		createdAt: new Date(),
-	},
+        id: 543,
+        owner: 2,
+        title: "Northwind Planetary Assault",
+        description: "The planetary assault on Northwind by Clan Snow Raven",
+        accessCode: "*****",
+        locked: true,
+        scheduled: new Date(),
+        started: new Date(),
+        finished: null,
+        createdAt: new Date()
+	}
 ];
 
-module.exports = books;
+module.exports = games;
