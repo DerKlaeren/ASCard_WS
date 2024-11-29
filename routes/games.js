@@ -29,7 +29,7 @@
  *           description: The title of the game
  *         background:
  *           type: string
- *           description: Description of the game
+ *           description: Background to this game
  *         era:
  *           type: string
  *           description: One of the eras STAR LEAGUE, SUCCESSION WARS, CLAN INVASION, CIVIL WAR, JIHAD, DARK AGE, ILCLAN
@@ -74,7 +74,7 @@
  */
 
 /**
- * @  swagger
+ * @swagger
  * tags:
  *   name: Game
  *   description: The ASCard game scoreboard API
