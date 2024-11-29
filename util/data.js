@@ -4,6 +4,8 @@ const games = [
         owner: 2,
         title: "Northwind Planetary Assault",
         description: "The planetary assault on Northwind by Clan Snow Raven",
+		era: "CLAN INVASION",
+		yearInGame: "3052",
         accessCode: "*****",
         locked: true,
         scheduled: new Date(),
