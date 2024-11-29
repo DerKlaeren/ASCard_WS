@@ -176,53 +176,67 @@
 const express = require("express");
 const router = express.Router();
 
-const books = require("../util/data");
+const games = require("../util/data");
 
 router.get("/", function (req, res) {
-	res.status(200).json(books);
+	res.status(200).json(games);
 });
 
 router.get("/:id", function (req, res) {
-	let book = books.find(function (item) {
+	let game = games.find(function (item) {
 		return item.id == req.params.id;
 	});
 
-	book ? res.status(200).json(book) : res.sendStatus(404);
+	game ? res.status(200).json(game) : res.sendStatus(404);
 });
 
 router.post("/", function (req, res) {
-	const { title, author, finished } = req.body;
+	const { owner, title, description, era, yearInGame, accessCode, locked, scheduled, started, finished } = req.body;
 
-	let book = {
-		id: books.length + 1,
-		title: title,
-		author: author,
-		finished: finished !== undefined ? finished : false,
-		createdAt: new Date(),
+	let game = {
+        id: games.length + 1,
+        owner: 2,
+        title: title,
+        description: description,
+		era: era,
+		yearInGame: yearInGame,
+        accessCode: accessCode,
+        locked: locked,
+        scheduled: scheduled,
+        started: started,
+        finished: finished !== undefined ? finished : null,
+        createdAt: new Date()
 	};
 
-	books.push(book);
+	games.push(game);
 
-	res.status(201).json(book);
+	res.status(201).json(game);
 });
 
 router.put("/:id", function (req, res) {
-	let book = books.find(function (item) {
+	let game = games.find(function (item) {
 		return item.id == req.params.id;
 	});
 
-	if (book) {
-		const { title, author, finished } = req.body;
+	if (game) {
+		const { owner, title, description, era, yearInGame, accessCode, locked, scheduled, started, finished } = req.body;
 
 		let updated = {
-			id: book.id,
-			title: title !== undefined ? title : book.title,
-			author: author !== undefined ? author : book.author,
-			finished: finished !== undefined ? finished : book.finished,
-			createdAt: book.createdAt,
+			id: game.id,
+			owner: owner !== undefined ? owner : game.owner,
+			title: title !== undefined ? title : game.title,
+			description: description !== undefined ? description : game.description,
+			era: era !== undefined ? era : game.era,
+			yearInGame: yearInGame !== undefined ? yearInGame : game.yearInGame,
+			accessCode: accessCode !== undefined ? accessCode : game.accessCode,
+			locked: locked !== undefined ? locked : game.locked,
+			scheduled: scheduled !== undefined ? scheduled : game.scheduled,
+			started: started !== undefined ? started : game.started,
+			finished: finished !== undefined ? finished : game.finished,
+			createdAt: game.createdAt,
 		};
 
-		books.splice(books.indexOf(book), 1, updated);
+		games.splice(games.indexOf(game), 1, updated);
 
 		res.sendStatus(204);
 	} else {
@@ -231,12 +245,12 @@ router.put("/:id", function (req, res) {
 });
 
 router.delete("/:id", function (req, res) {
-	let book = books.find(function (item) {
+	let game = games.find(function (item) {
 		return item.id == req.params.id;
 	});
 
-	if (book) {
-		books.splice(books.indexOf(book), 1);
+	if (game) {
+		games.splice(games.indexOf(game), 1);
 	} else {
 		return res.sendStatus(404);
 	}
