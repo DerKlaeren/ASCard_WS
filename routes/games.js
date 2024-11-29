@@ -32,7 +32,7 @@
  *           description: Description of the game
  *         era:
  *           type: string
- *           description: One of the eras ('STAR LEAGUE','SUCCESSION WARS','CLAN INVASION','CIVIL WAR','JIHAD','DARK AGE','ILCLAN')
+ *           description: One of the eras: STAR LEAGUE, SUCCESSION WARS, CLAN INVASION, CIVIL WAR, JIHAD, DARK AGE, ILCLAN
  *         yearInGame:
  *           type: string
  *           description: The year in the BTU timeline
