@@ -1,7 +1,7 @@
 // https://blog.logrocket.com/documenting-express-js-api-swagger/
 
 /**
- * @  swagger
+ * @swagger
  * components:
  *   schemas:
  *     Game:
