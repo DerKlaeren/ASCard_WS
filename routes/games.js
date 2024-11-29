@@ -1,7 +1,7 @@
 // https://blog.logrocket.com/documenting-express-js-api-swagger/
 
 /**
- * @swagger
+ * @  swagger
  * components:
  *   schemas:
  *     Game:
@@ -65,7 +65,7 @@
  *         description: The planetary assault on Northwind by Clan Snow Raven
  *         era: CLAN INVASION
  *         yearInGame: 3052
- *         accessCode: *****
+ *         accessCode: xxx
  *         locked: true
  *         scheduled: 2024-12-06T08:00:00.000Z
  *         started: 2024-12-06T08:00:00.000Z
