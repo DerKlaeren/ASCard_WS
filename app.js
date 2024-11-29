@@ -98,7 +98,20 @@ logger.error(new Error('Error as info'));
 
 
 
+// routes
+const bodyParser = require("body-parser"),
+  swaggerJsdoc = require("swagger-jsdoc"),
+  swaggerUi = require("swagger-ui-express");
 
+
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
+app.use(bodyParser.json());
+
+app.use("/games", require("./routes/games"));
 
 
 
@@ -212,7 +225,7 @@ const options = {
       },
     ],
   },
-  apis: ["/routes/*.js"],
+  apis: ["./routes/*.js"],
 };
 
 const specs = swaggerJsdoc(options);
@@ -223,20 +236,7 @@ app.use(
 );
 
 
-// routes
-const bodyParser = require("body-parser"),
-  swaggerJsdoc = require("swagger-jsdoc"),
-  swaggerUi = require("swagger-ui-express");
 
-
-app.use(
-  bodyParser.urlencoded({
-    extended: true,
-  })
-);
-app.use(bodyParser.json());
-
-app.use("/games", require("./routes/games"));
 
 
 
