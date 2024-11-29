@@ -1,4 +1,8 @@
-const express = require('express');
+const express = require('express'),
+  bodyParser = require("body-parser"),
+  swaggerJsdoc = require("swagger-jsdoc"),
+  swaggerUi = require("swagger-ui-express");
+
 const app = express();
 const port = 3000;
 
@@ -98,10 +102,7 @@ logger.error(new Error('Error as info'));
 
 
 
-// routes
-const bodyParser = require("body-parser"),
-  swaggerJsdoc = require("swagger-jsdoc"),
-  swaggerUi = require("swagger-ui-express");
+
 
 
 app.use(
