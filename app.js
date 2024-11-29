@@ -165,7 +165,7 @@ async function main() {
 
       //Print list of contacts
       for (i = 0, len = rows.length; i < len; i++) {
-         console.log(`${rows[i].a} ${rows[i].b} <${rows[i].c}>`);
+         console.log(`${rows[i].gameid} ${rows[i].gameid} <${rows[i].gameid}>`);
       }
    } catch (err) {
       // Manage Errors
@@ -178,7 +178,7 @@ async function main() {
 
 //Get list of contacts
 function get_contacts(conn) {
-   return conn.query("SELECT a, b, c FROM ascard.test");
+   return conn.query("SELECT gameid FROM ascard.asc_game");
 }
 
 
