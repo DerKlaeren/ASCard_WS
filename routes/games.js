@@ -229,7 +229,7 @@ router.post("/", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
     var ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress || null;
-    const games = await db.pool.query("select * from asc_game");
+    const games = await db.pool.query("SELECT * FROM asc_game");
 
 	let game = games.find(function (item) {
 		return item.gameid == req.params.id;
@@ -239,7 +239,7 @@ router.put("/:id", async (req, res) => {
 		const { owner, title, background, era, yearInGame, accessCode, locked, scheduled, started, finished } = req.body;
 
 		let updated = {
-			id: game.gameid,
+			gameid: game.gameid,
 			owner: owner !== undefined ? owner : game.owner,
 			title: title !== undefined ? title : game.title,
 			background: background !== undefined ? background : game.background,
