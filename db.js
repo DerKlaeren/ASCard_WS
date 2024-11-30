@@ -2,7 +2,7 @@
  * ASCard Webservice
  * Database
  */
-const { logger } = require('../logger.js');
+const { logger } = require('./logger.js');
 const mariadb = require("mariadb");
 
 require('dotenv').config()
