@@ -3,77 +3,23 @@
  * Main
  */
 const express = require('express');
-
 const bodyParser = require('body-parser');
-const swaggerJsdoc = require('swagger-jsdoc');
-swaggerUi = require('swagger-ui-express');
-
 const app = express();
 const port = 3000;
 
 const { logger } = require('./logger.js');
+const { specs } = require('./swagger.js');
 
+logger.info('Starting up ASCard Webservice...');
 
-
-// Examples for logging
-
-logger.log({
-  level: 'info',
-  message: 'Pass an object and this works',
-  additional: 'properties',
-  are: 'passed along'
-});
-
-logger.info({
-  message: 'Use a helper method if you want',
-  additional: 'properties',
-  are: 'passed along'
-});
-
-logger.log('info', 'Pass a message and this works', {
-  additional: 'properties',
-  are: 'passed along'
-});
-
-logger.info('Use a helper method if you want', {
-  additional: 'properties',
-  are: 'passed along'
-});
-
-logger.log('info', 'test message %s', 'my string');
-logger.log('info', 'test message %d', 123);
-logger.log('info', 'test message %s, %s', 'first', 'second', { number: 123 });
-logger.info('Found %s at %s', 'error', new Date());
-logger.info('Found %s at %s', 'error', new Error('chill winston'));
-logger.info('Found %s at %s', 'error', /WUT/);
-logger.info('Found %s at %s', 'error', true);
-logger.info('Found %s at %s', 'error', 100.00);
-logger.info('Found %s at %s', 'error', ['1, 2, 3']);
-
-logger.warn(new Error('Error passed as info'));
-logger.log('error', new Error('Error passed as message'));
-
-logger.warn('Maybe important error: ', new Error('Error passed as meta'));
-logger.log('error', 'Important error: ', new Error('Error passed as meta'));
-
-logger.error(new Error('Error as info'));
-
-
-
-
-
-
-
-
-
-app.use(
-  bodyParser.urlencoded({
-    extended: true,
-  })
-);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs, { explorer: true }));
+app.use(bodyParser.urlencoded({ extended: true, }));
 app.use(bodyParser.json());
 
+// Routes
+app.get('/', (req, res) => { res.send('Hello World!'); });
 app.use("/games", require("./routes/games"));
+
 
 
 
@@ -103,7 +49,7 @@ const {
   DATABASE = 'db'
 } = process.env
 
-logger.info(DATABASE);
+logger.info('Connected to database: %s', DATABASE);
 
 const mariadb = require("mariadb");
 
@@ -124,6 +70,7 @@ async function main() {
 
     //Print list of contacts
     for (i = 0, len = rows.length; i < len; i++) {
+      console.log('selected');
       console.log(`${rows[i].gameid} ${rows[i].gameid} <${rows[i].gameid}>`);
     }
   } catch (err) {
@@ -157,51 +104,14 @@ function get_contacts(conn) {
 
 
 
-// Swagger
-// https://blog.logrocket.com/documenting-express-js-api-swagger/
-
-const options = {
-  definition: {
-    openapi: "3.1.0",
-    info: {
-      title: "ASCard Web API",
-      version: "0.1.0",
-      description:
-        "Access game data from ASCard games",
-      license: {
-        name: "Apache 2.0",
-        url: "https://spdx.org/licenses/Apache-2.0.html",
-      },
-      contact: {
-        name: "ASCard.net",
-        url: "https://www.ascard.net",
-        email: "info@ascard.net",
-      },
-    },
-    servers: [
-      //{
-      //  url: "http://localhost:3000",
-      //},
-    ],
-  },
-  apis: ["./routes/*.js"],
-};
-
-const specs = swaggerJsdoc(options);
-app.use(
-  "/api-docs",
-  swaggerUi.serve,
-  swaggerUi.setup(specs, { explorer: true })
-);
 
 
 
 
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
+
+
 
 app.listen(port, () => {
-  console.log(`Web service listening at http://localhost:${port}`);
+  logger.info(`Web service listening at http://localhost:${port}`);
 });

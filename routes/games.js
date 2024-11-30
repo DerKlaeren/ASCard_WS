@@ -1,5 +1,3 @@
-// https://blog.logrocket.com/documenting-express-js-api-swagger/
-
 /**
  * @swagger
  * components:
@@ -172,11 +170,11 @@
  *       404:
  *         description: The game was not found
  */
+const { logger } = require('../logger.js');
 
 const express = require("express");
 const router = express.Router();
 const games = require("../util/data");
-const { logger } = require('../logger.js');
 
 router.get("/", function (req, res) {
 	logger.info("Test of logging in here");
