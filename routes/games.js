@@ -240,7 +240,7 @@ router.put("/:id", async (req, res) => {
 
 		let updated = {
 			gameid: game.gameid,
-			ownerPlayerId: ownerPlayerId !== undefined ? owownerPlayerIdner : game.ownerPlayerId,
+			ownerPlayerId: ownerPlayerId !== undefined ? ownerPlayerId : game.ownerPlayerId,
 			title: title !== undefined ? title : game.title,
 			background: background !== undefined ? background : game.background,
 			era: era !== undefined ? era : game.era,
