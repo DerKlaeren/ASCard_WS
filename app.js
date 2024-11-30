@@ -25,7 +25,7 @@ app.use("/games", require("./routes/games"));
 // GET
 app.get('/tasks', async (req, res) => {
   try {
-      const result = await db.pool.query("select * from tasks");
+      const result = await db.pool.query("SELECT gameid FROM ascard.asc_game");
       res.send(result);
   } catch (err) {
       throw err;
