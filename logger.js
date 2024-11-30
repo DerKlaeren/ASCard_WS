@@ -30,7 +30,9 @@ const logger = createLogger({
         format.printf((info) => `[${info.timestamp}] ${info.level}: ${info.message}`)
     ),
     defaultMeta: { service: 'ascard-service' },
-    transports: [new winston.transports.Console, fileRotateCombinedTransport, fileRotateErrorTransport]
+    transports: [new winston.transports.Console({
+        format: winston.format.simple(),
+      }), fileRotateCombinedTransport, fileRotateErrorTransport]
 });
 
 module.exports = {

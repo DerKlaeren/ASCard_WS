@@ -198,7 +198,9 @@ app.use(
 
 
 
-
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+});
 
 app.listen(port, () => {
   console.log(`Web service listening at http://localhost:${port}`);
