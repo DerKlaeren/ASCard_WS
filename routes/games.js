@@ -176,7 +176,7 @@
 const express = require("express");
 const router = express.Router();
 const games = require("../util/data");
-const { logger } = require('./logger.js');
+const { logger } = require('../logger.js');
 
 router.get("/", function (req, res) {
 	logger.info("Test of logging in here");
