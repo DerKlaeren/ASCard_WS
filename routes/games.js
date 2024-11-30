@@ -175,34 +175,35 @@ const db = require('../db.js');
 
 const express = require("express");
 const router = express.Router();
-const gamesDELETEME = require("../util/data");
-
-//router.get("/", function (req, res) {
-//	logger.info("Test of logging in here");
-//	res.status(200).json(games);
-//});
 
 router.get('/', async (req, res) => {
     try {
-        const games = await db.pool.query("select * from asc_game");
         var ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress || null;
+        const games = await db.pool.query("SELECT * FROM asc_game");
         logger.info("List of all games requested from ip: " + ip);
+
         res.status(200).send(games);
     } catch (err) {
         throw err;
     }
 });
 
-router.get("/:id", function (req, res) {
-	let game = gamesDELETEME.find(function (item) {
+router.get("/:id", async (req, res) => {
+    var ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress || null;
+    const games = await db.pool.query("SELECT * FROM asc_game");
+    logger.info("Game with id " + req.params.id + " requested from ip: " + ip);
+
+	let game = games.find(function (item) {
 		return item.id == req.params.id;
 	});
 
 	game ? res.status(200).json(game) : res.sendStatus(404);
 });
 
-router.post("/", function (req, res) {
+router.post("/", async (req, res) => {
 	const { owner, title, background, era, yearInGame, accessCode, locked, scheduled, started, finished } = req.body;
+
+    var ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress || null;
 
 	let game = {
 		id: games.length + 1,
@@ -219,13 +220,18 @@ router.post("/", function (req, res) {
 		createdAt: new Date()
 	};
 
-	gamesDELETEME.push(game);
+    db.pool.query("INSERT INTO asc_game VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Object.values(game));
+
+    logger.info("Game with id " + game.id + " created from ip: " + ip);
 
 	res.status(201).json(game);
 });
 
-router.put("/:id", function (req, res) {
-	let game = gamesDELETEME.find(function (item) {
+router.put("/:id", async (req, res) => {
+    var ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress || null;
+    const games = await db.pool.query("select * from asc_game");
+
+	let game = games.find(function (item) {
 		return item.id == req.params.id;
 	});
 
@@ -247,7 +253,10 @@ router.put("/:id", function (req, res) {
 			createdAt: game.createdAt,
 		};
 
-		gamesDELETEME.splice(gamesDELETEME.indexOf(game), 1, updated);
+        db.pool.query("UPDATE asc_game SET ? WHERE gameid = ?", [updated, game.id], (error, result) => {
+            if (error) throw error;
+            logger.info("Game with id " + game.id + " updated from ip: " + ip);
+        });
 
 		res.sendStatus(204);
 	} else {
@@ -255,13 +264,19 @@ router.put("/:id", function (req, res) {
 	}
 });
 
-router.delete("/:id", function (req, res) {
-	let game = gamesDELETEME.find(function (item) {
+router.delete("/:id", async (req, res) => {
+    var ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress || null;
+    const games = await db.pool.query("select * from asc_game");
+
+	let game = games.find(function (item) {
 		return item.id == req.params.id;
 	});
 
 	if (game) {
-		gamesDELETEME.splice(gamesDELETEME.indexOf(game), 1);
+        db.pool.query("DELETE FROM asc_game WHERE gameid = ?", [game.id], (error, result) => {
+            if (error) throw error;
+            logger.info("Game with id " + game.id + " deleted from ip: " + ip);
+        });
 	} else {
 		return res.sendStatus(404);
 	}
