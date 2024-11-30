@@ -18,10 +18,10 @@ app.use(bodyParser.urlencoded({ extended: true, }));
 app.use(bodyParser.json());
 
 // Routes
-app.get('/', async (req, res) => { 
+app.get('/', (req, res) => { 
 
   try {
-  const result = await db.pool.query("SELECT gameid FROM ascard.asc_game");
+  const result = db.pool.query("SELECT gameid FROM ascard.asc_game");
   res.send('<html><body><p>ASCard WS - Check <a href="https://ws.ascard.net/api-docs">api-docs</a></p></body></html>');
 } catch (err) {
   console.log(err);
