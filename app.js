@@ -18,78 +18,73 @@ app.use(bodyParser.urlencoded({ extended: true, }));
 app.use(bodyParser.json());
 
 // Routes
-app.get('/', async (req, res) => {
+app.get('/', (req, res) => { res.send('<html><body><p>ASCard WS - Check <a href="https://ws.ascard.net/api-docs">api-docs</a></p></body></html>'); });
+app.use("/games", require("./routes/games"));
 
-    const newTodo = await db.pool.query(
-      'SELECT gameid FROM ascard.asc_game',
-      (err, res) => {
-        if (err) return next(err);
-      }
-    );
-    res.json(newTodo);
-
-
-  //  res.send('<html><body><p>ASCard WS - Check <a href="https://ws.ascard.net/api-docs">api-docs</a></p></body></html>');
-  });
-  app.use("/games", require("./routes/games"));
-
-
-
-  // const result = await db.pool.query("SELECT gameid FROM ascard.asc_game");
-
-
-
-
-
-
-
-  /* // DB
-  require('dotenv').config()
-  
-  const {
-    DB_HOST = 'host',
-    DB_USER = 'user',
-    DB_PASSWORD = 'password',
-    DATABASE = 'db'
-  } = process.env
-  
-  logger.info('Connected to database: %s', DATABASE);
-  
-  const mariadb = require("mariadb");
-  
-  // Main function
-  async function main() {
-    let conn;
-  
-    try {
-      conn = await mariadb.createConnection({
-        host: DB_HOST,
-        user: DB_USER,
-        password: DB_PASSWORD,
-        database: DATABASE
-      });
-  
-      // Use Connection to get contacts data
-      var rows = await get_contacts(conn);
-  
-      //Print list of contacts
-      for (i = 0, len = rows.length; i < len; i++) {
-        console.log('selected');
-        console.log(`${rows[i].gameid} ${rows[i].gameid} <${rows[i].gameid}>`);
-      }
-    } catch (err) {
-      // Manage Errors
-      console.log(err);
-    } finally {
-      // Close Connection
-      if (conn) conn.close();
-    }
+app.get('/tasks', async (req, res) => {
+  try {
+      const result = await db.pool.query("select * from asc_game");
+      res.send(result);
+  } catch (err) {
+      throw err;
   }
-  
-  //Get list of contacts
-  function get_contacts(conn) {
-    return conn.query("SELECT gameid FROM ascard.asc_game");
-  } */
+});
+
+// const result = await db.pool.query("SELECT gameid FROM ascard.asc_game");
+
+
+
+
+
+
+
+/* // DB
+require('dotenv').config()
+ 
+const {
+  DB_HOST = 'host',
+  DB_USER = 'user',
+  DB_PASSWORD = 'password',
+  DATABASE = 'db'
+} = process.env
+ 
+logger.info('Connected to database: %s', DATABASE);
+ 
+const mariadb = require("mariadb");
+ 
+// Main function
+async function main() {
+  let conn;
+ 
+  try {
+    conn = await mariadb.createConnection({
+      host: DB_HOST,
+      user: DB_USER,
+      password: DB_PASSWORD,
+      database: DATABASE
+    });
+ 
+    // Use Connection to get contacts data
+    var rows = await get_contacts(conn);
+ 
+    //Print list of contacts
+    for (i = 0, len = rows.length; i < len; i++) {
+      console.log('selected');
+      console.log(`${rows[i].gameid} ${rows[i].gameid} <${rows[i].gameid}>`);
+    }
+  } catch (err) {
+    // Manage Errors
+    console.log(err);
+  } finally {
+    // Close Connection
+    if (conn) conn.close();
+  }
+}
+ 
+//Get list of contacts
+function get_contacts(conn) {
+  return conn.query("SELECT gameid FROM ascard.asc_game");
+} */
 
 
 
@@ -116,4 +111,4 @@ app.get('/', async (req, res) => {
 
 
 
-  app.listen(port, () => { logger.info(`Web service listening at http://localhost:${port}`); });
+app.listen(port, () => { logger.info(`Web service listening at http://localhost:${port}`); });

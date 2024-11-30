@@ -6,7 +6,7 @@ const {
     DB_HOST = 'host',
     DB_USER = 'user',
     DB_PASSWORD = 'password',
-    DATABASE = 'db'
+    DATABASE = 'database'
 } = process.env
 
 // Create a connection pool
