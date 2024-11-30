@@ -171,14 +171,24 @@
  *         description: The game was not found
  */
 const { logger } = require('../logger.js');
+const db = require('../db.js');
 
 const express = require("express");
 const router = express.Router();
 const games = require("../util/data");
 
-router.get("/", function (req, res) {
-	logger.info("Test of logging in here");
-	res.status(200).json(games);
+//router.get("/", function (req, res) {
+//	logger.info("Test of logging in here");
+//	res.status(200).json(games);
+//});
+
+router.get('/', async (req, res) => {
+    try {
+        const result = await db.pool.query("select * from asc_game");
+        res.status(200).send(result);
+    } catch (err) {
+        throw err;
+    }
 });
 
 router.get("/:id", function (req, res) {
