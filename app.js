@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true, }));
 app.use(bodyParser.json());
 
 // Routes
-app.get('/', (req, res) => { res.send('Hello World!'); });
+app.get('/', (req, res) => { res.send('ASCard WS - Check https://ws.ascard.net/api-docs'); });
 app.use("/games", require("./routes/games"));
 
 
