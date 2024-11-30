@@ -253,7 +253,7 @@ router.put("/:id", async (req, res) => {
 			createdAt: game.createdAt,
 		};
 
-        db.pool.query("UPDATE asc_game SET ownerPlayerId = ? WHERE gameid = ?", [updated.ownerPlayerId, game.gameid], (error, result) => {
+        db.pool.query("UPDATE asc_game SET ? WHERE gameid = ?", [updated, game.gameid], (error, result) => {
             if (error) throw error;
             logger.info("Game with id " + game.gameid + " updated from ip: " + ip);
         });
