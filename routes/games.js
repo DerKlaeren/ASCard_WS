@@ -269,7 +269,7 @@ router.delete("/:id", async (req, res) => {
     const games = await db.pool.query("select * from asc_game");
 
 	let game = games.find(function (item) {
-		return item.id == req.params.id;
+		return item.gameid == req.params.id;
 	});
 
 	if (game) {
