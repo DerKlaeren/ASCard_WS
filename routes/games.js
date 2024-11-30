@@ -77,7 +77,7 @@
  * @swagger
  * tags:
  *   name: Game
- *   description: The ASCard game scoreboard API
+ *   description: The ASCard API
  * /games:
  *   get:
  *     summary: Lists all games
@@ -174,7 +174,7 @@
  */
 
 const express = require("express");
-const router = express.Router();
+const router = express.Router(); 
 
 const games = require("../util/data");
 
