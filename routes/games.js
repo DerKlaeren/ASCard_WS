@@ -194,7 +194,7 @@ router.get("/:id", async (req, res) => {
     logger.info("Game with id " + req.params.id + " requested from ip: " + ip);
 
 	let game = games.find(function (item) {
-		return item.id == req.params.id;
+		return item.gameid == req.params.id;
 	});
 
 	game ? res.status(200).json(game) : res.sendStatus(404);
