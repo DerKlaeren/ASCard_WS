@@ -222,7 +222,7 @@ router.post("/", async (req, res) => {
 
     db.pool.query("INSERT INTO asc_game VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Object.values(game));
 
-    logger.info("Game with id " + game.id + " created from ip: " + ip);
+    logger.info("Game with id " + game.gameid + " created from ip: " + ip);
 
 	res.status(201).json(game);
 });
@@ -239,7 +239,7 @@ router.put("/:id", async (req, res) => {
 		const { owner, title, background, era, yearInGame, accessCode, locked, scheduled, started, finished } = req.body;
 
 		let updated = {
-			id: game.id,
+			id: game.gameid,
 			owner: owner !== undefined ? owner : game.owner,
 			title: title !== undefined ? title : game.title,
 			background: background !== undefined ? background : game.background,
@@ -253,9 +253,9 @@ router.put("/:id", async (req, res) => {
 			createdAt: game.createdAt,
 		};
 
-        db.pool.query("UPDATE asc_game SET ? WHERE gameid = ?", [updated, game.id], (error, result) => {
+        db.pool.query("UPDATE asc_game SET ? WHERE gameid = ?", [updated, game.gameid], (error, result) => {
             if (error) throw error;
-            logger.info("Game with id " + game.id + " updated from ip: " + ip);
+            logger.info("Game with id " + game.gameid + " updated from ip: " + ip);
         });
 
 		res.sendStatus(204);
@@ -266,16 +266,16 @@ router.put("/:id", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
     var ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress || null;
-    const games = await db.pool.query("select * from asc_game");
+    const games = await db.pool.query("SELECT * FROM asc_game");
 
 	let game = games.find(function (item) {
 		return item.gameid == req.params.id;
 	});
 
 	if (game) {
-        db.pool.query("DELETE FROM asc_game WHERE gameid = ?", [game.id], (error, result) => {
+        db.pool.query("DELETE FROM asc_game WHERE gameid = ?", [game.gameid], (error, result) => {
             if (error) throw error;
-            logger.info("Game with id " + game.id + " deleted from ip: " + ip);
+            logger.info("Game with id " + game.gameid + " deleted from ip: " + ip);
         });
 	} else {
 		return res.sendStatus(404);
