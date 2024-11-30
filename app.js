@@ -22,13 +22,14 @@ app.get('/', async (req, res) => {
 
   try {
   const result = await db.pool.query("SELECT gameid FROM ascard.asc_game");
+  res.send('<html><body><p>ASCard WS - Check <a href="https://ws.ascard.net/api-docs">api-docs</a></p></body></html>');
 } catch (err) {
   console.log(err);
 } finally {
   if (conn) conn.end();
 }
 
-  res.send('<html><body><p>ASCard WS - Check <a href="https://ws.ascard.net/api-docs">api-docs</a></p></body></html>');
+
 
 });
 app.use("/games", require("./routes/games"));
