@@ -1,44 +1,19 @@
+/**
+ * ASCard Webservice
+ * Main
+ */
 const express = require('express');
+
 const bodyParser = require('body-parser');
 const swaggerJsdoc = require('swagger-jsdoc');
-      swaggerUi = require('swagger-ui-express');
+swaggerUi = require('swagger-ui-express');
 
 const app = express();
 const port = 3000;
 
+const { logger } = require('./logger.js');
 
 
-// Logger
-const winston = require('winston');
-require('winston-daily-rotate-file');
-
-const fileRotateCombinedTransport = new winston.transports.DailyRotateFile({
-  filename: './log/combined-%DATE%.log',
-  datePattern: 'YYYY-MM-DD',
-  maxFiles: '14d',
-});
-
-const fileRotateErrorTransport = new winston.transports.DailyRotateFile({
-  filename: './log/error-%DATE%.log',
-  datePattern: 'YYYY-MM-DD',
-  maxFiles: '14d',
-});
-
-const { createLogger, format, transports } = require('winston');
-
-const logger = createLogger({
-    level: 'info',
-    format: format.combine(
-        format.timestamp({
-            format: 'YYYY-MM-DD HH:mm:ss'
-        }),
-        format.align(),
-		format.splat(),
-        format.printf((info) => `[${info.timestamp}] ${info.level}: ${info.message}`)
-    ),
-    defaultMeta: { service: 'ascard-service' },
-    transports: [ fileRotateCombinedTransport, fileRotateErrorTransport ]
-});
 
 // Examples for logging
 
@@ -134,35 +109,35 @@ const mariadb = require("mariadb");
 
 // Main function
 async function main() {
-   let conn;
+  let conn;
 
-   try {
-      conn = await mariadb.createConnection({
-     host: DB_HOST, 
-     user: DB_USER, 
-     password: DB_PASSWORD,
-     database: DATABASE
-      });
+  try {
+    conn = await mariadb.createConnection({
+      host: DB_HOST,
+      user: DB_USER,
+      password: DB_PASSWORD,
+      database: DATABASE
+    });
 
-      // Use Connection to get contacts data
-      var rows = await get_contacts(conn);
+    // Use Connection to get contacts data
+    var rows = await get_contacts(conn);
 
-      //Print list of contacts
-      for (i = 0, len = rows.length; i < len; i++) {
-         console.log(`${rows[i].gameid} ${rows[i].gameid} <${rows[i].gameid}>`);
-      }
-   } catch (err) {
-      // Manage Errors
-      console.log(err);
-   } finally {
-      // Close Connection
-      if (conn) conn.close();
-   }
+    //Print list of contacts
+    for (i = 0, len = rows.length; i < len; i++) {
+      console.log(`${rows[i].gameid} ${rows[i].gameid} <${rows[i].gameid}>`);
+    }
+  } catch (err) {
+    // Manage Errors
+    console.log(err);
+  } finally {
+    // Close Connection
+    if (conn) conn.close();
+  }
 }
 
 //Get list of contacts
 function get_contacts(conn) {
-   return conn.query("SELECT gameid FROM ascard.asc_game");
+  return conn.query("SELECT gameid FROM ascard.asc_game");
 }
 
 

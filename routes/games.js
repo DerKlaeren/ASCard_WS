@@ -174,11 +174,11 @@
  */
 
 const express = require("express");
-const router = express.Router(); 
-
+const router = express.Router();
 const games = require("../util/data");
 
 router.get("/", function (req, res) {
+	logger.info("Test of logging in here");
 	res.status(200).json(games);
 });
 
@@ -194,18 +194,18 @@ router.post("/", function (req, res) {
 	const { owner, title, background, era, yearInGame, accessCode, locked, scheduled, started, finished } = req.body;
 
 	let game = {
-        id: games.length + 1,
-        owner: owner,
-        title: title,
-        background: background,
+		id: games.length + 1,
+		owner: owner,
+		title: title,
+		background: background,
 		era: era,
 		yearInGame: yearInGame,
-        accessCode: accessCode,
-        locked: locked,
-        scheduled: scheduled,
-        started: started,
-        finished: finished !== undefined ? finished : null,
-        createdAt: new Date()
+		accessCode: accessCode,
+		locked: locked,
+		scheduled: scheduled,
+		started: started,
+		finished: finished !== undefined ? finished : null,
+		createdAt: new Date()
 	};
 
 	games.push(game);
