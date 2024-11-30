@@ -16,7 +16,7 @@
  *         - started
  *         - finished
  *       properties:
- *         id:
+ *         gameid:
  *           type: string
  *           description: The auto-generated id of the game
  *         owner:
@@ -57,7 +57,7 @@
  *           format: date
  *           description: The date the game was added
  *       example:
- *         id: 543
+ *         gameid: 543
  *         owner: 2
  *         title: Northwind Planetary Assault
  *         background: The planetary assault on Northwind by Clan Snow Raven
@@ -206,7 +206,7 @@ router.post("/", async (req, res) => {
     var ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress || null;
 
 	let game = {
-		id: games.length + 1,
+		gameid: games.length + 1,
 		owner: owner,
 		title: title,
 		background: background,
