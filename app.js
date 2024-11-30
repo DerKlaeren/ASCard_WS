@@ -5,9 +5,7 @@ const swaggerJsdoc = require('swagger-jsdoc');
 
 const app = express();
 const port = 3000;
-const logger = require('./logger.js');
-
-
+const logger = require('/logger.js');
 
 
 // Examples for logging
