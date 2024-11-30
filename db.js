@@ -1,4 +1,5 @@
 // Use the MariaDB Node.js Connector
+const { logger } = require('./logger.js');
 var mariadb = require('mariadb');
 
 require('dotenv').config()
@@ -9,15 +10,20 @@ const {
     DATABASE = 'database'
 } = process.env
 
+logger.info("Host: " + DB_HOST);
+logger.info("User: " + DB_USER);
+logger.info("Database: " + DATABASE);
+
 // Create a connection pool
-var pool =
-    mariadb.createPool({
-        host: DB_HOST,
-        port: 3306,
-        user: DB_USER,
-        password: DB_PASSWORD,
-        database: DATABASE
-    });
+var pool = mariadb.createPool({
+    host: DB_HOST,
+    port: 3306,
+    user: DB_USER,
+    password: DB_PASSWORD,
+    database: DATABASE
+});
+
+logger.info("Pool: " + pool);
 
 // Expose a method to establish connection with MariaDB SkySQL
 module.exports = Object.freeze({
