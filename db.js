@@ -33,7 +33,7 @@ async function fetchConn() {
     return conn;
 }
 
-async function get_games() {
+module.exports = async function get_games() {
     let conn;
 
     try {
@@ -44,8 +44,4 @@ async function get_games() {
     } finally {
         if (conn) conn.end();
     }
-}
-
-module.exports = {
-    get_games
 }

@@ -25,7 +25,7 @@ app.use("/games", require("./routes/games"));
 
 
 
-db.get_games();
+//db.get_Games();
 
 
 
