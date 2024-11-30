@@ -9,6 +9,7 @@ const port = 3000;
 
 const { logger } = require('./logger.js');
 const { specs } = require('./swagger.js');
+const { db } = require('./db.js');
 
 logger.info('Starting up ASCard Webservice...');
 
@@ -24,6 +25,7 @@ app.use("/games", require("./routes/games"));
 
 
 
+db.get_games();
 
 
 
@@ -39,7 +41,9 @@ app.use("/games", require("./routes/games"));
 
 
 
-// DB
+
+
+/* // DB
 require('dotenv').config()
 
 const {
@@ -85,7 +89,7 @@ async function main() {
 //Get list of contacts
 function get_contacts(conn) {
   return conn.query("SELECT gameid FROM ascard.asc_game");
-}
+} */
 
 
 
@@ -112,6 +116,4 @@ function get_contacts(conn) {
 
 
 
-app.listen(port, () => {
-  logger.info(`Web service listening at http://localhost:${port}`);
-});
+app.listen(port, () => { logger.info(`Web service listening at http://localhost:${port}`); });
