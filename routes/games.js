@@ -5,7 +5,7 @@
  *     Game:
  *       type: object
  *       required:
- *         - owner
+ *         - ownerPlayerId
  *         - title
  *         - background
  *         - era
@@ -19,7 +19,7 @@
  *         gameid:
  *           type: string
  *           description: The auto-generated id of the game
- *         owner:
+ *         ownerPlayerId:
  *           type: string
  *           description: The player this game is assigned to
  *         title:
@@ -58,7 +58,7 @@
  *           description: The date the game was added
  *       example:
  *         gameid: 543
- *         owner: 2
+ *         ownerPlayerId: 2
  *         title: Northwind Planetary Assault
  *         background: The planetary assault on Northwind by Clan Snow Raven
  *         era: CLAN INVASION
@@ -201,13 +201,13 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-	const { owner, title, background, era, yearInGame, accessCode, locked, scheduled, started, finished } = req.body;
+	const { ownerPlayerId, title, background, era, yearInGame, accessCode, locked, scheduled, started, finished } = req.body;
     const games = await db.pool.query("SELECT * FROM asc_game");
     var ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress || null;
 
 	let game = {
 		gameid: games.length + 1,
-		owner: owner,
+		ownerPlayerId: ownerPlayerId,
 		title: title,
 		background: background,
 		era: era,
@@ -236,11 +236,11 @@ router.put("/:id", async (req, res) => {
 	});
 
 	if (game) {
-		const { owner, title, background, era, yearInGame, accessCode, locked, scheduled, started, finished } = req.body;
+		const { ownerPlayerId, title, background, era, yearInGame, accessCode, locked, scheduled, started, finished } = req.body;
 
 		let updated = {
 			gameid: game.gameid,
-			owner: owner !== undefined ? owner : game.owner,
+			ownerPlayerId: ownerPlayerId !== undefined ? owownerPlayerIdner : game.ownerPlayerId,
 			title: title !== undefined ? title : game.title,
 			background: background !== undefined ? background : game.background,
 			era: era !== undefined ? era : game.era,
@@ -253,7 +253,7 @@ router.put("/:id", async (req, res) => {
 			createdAt: game.createdAt,
 		};
 
-        db.pool.query("UPDATE asc_game SET owner = ? WHERE gameid = ?", [updated.owner, game.gameid], (error, result) => {
+        db.pool.query("UPDATE asc_game SET ownerPlayerId = ? WHERE gameid = ?", [updated.ownerPlayerId, game.gameid], (error, result) => {
             if (error) throw error;
             logger.info("Game with id " + game.gameid + " updated from ip: " + ip);
         });
