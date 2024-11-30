@@ -175,7 +175,7 @@ const db = require('../db.js');
 
 const express = require("express");
 const router = express.Router();
-const games = require("../util/data");
+const gamesDELETEME = require("../util/data");
 
 //router.get("/", function (req, res) {
 //	logger.info("Test of logging in here");
@@ -184,15 +184,17 @@ const games = require("../util/data");
 
 router.get('/', async (req, res) => {
     try {
-        const result = await db.pool.query("select * from asc_game");
-        res.status(200).send(result);
+        const games = await db.pool.query("select * from asc_game");
+        var ip = req.body.ip;
+        logger.info("List of all games requested from ip: " + ip);
+        res.status(200).send(games);
     } catch (err) {
         throw err;
     }
 });
 
 router.get("/:id", function (req, res) {
-	let game = games.find(function (item) {
+	let game = gamesDELETEME.find(function (item) {
 		return item.id == req.params.id;
 	});
 
@@ -217,13 +219,13 @@ router.post("/", function (req, res) {
 		createdAt: new Date()
 	};
 
-	games.push(game);
+	gamesDELETEME.push(game);
 
 	res.status(201).json(game);
 });
 
 router.put("/:id", function (req, res) {
-	let game = games.find(function (item) {
+	let game = gamesDELETEME.find(function (item) {
 		return item.id == req.params.id;
 	});
 
@@ -245,7 +247,7 @@ router.put("/:id", function (req, res) {
 			createdAt: game.createdAt,
 		};
 
-		games.splice(games.indexOf(game), 1, updated);
+		gamesDELETEME.splice(gamesDELETEME.indexOf(game), 1, updated);
 
 		res.sendStatus(204);
 	} else {
@@ -254,12 +256,12 @@ router.put("/:id", function (req, res) {
 });
 
 router.delete("/:id", function (req, res) {
-	let game = games.find(function (item) {
+	let game = gamesDELETEME.find(function (item) {
 		return item.id == req.params.id;
 	});
 
 	if (game) {
-		games.splice(games.indexOf(game), 1);
+		gamesDELETEME.splice(gamesDELETEME.indexOf(game), 1);
 	} else {
 		return res.sendStatus(404);
 	}
