@@ -202,7 +202,7 @@ router.get("/:id", async (req, res) => {
 
 router.post("/", async (req, res) => {
 	const { owner, title, background, era, yearInGame, accessCode, locked, scheduled, started, finished } = req.body;
-
+    const games = await db.pool.query("SELECT * FROM asc_game");
     var ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress || null;
 
 	let game = {
