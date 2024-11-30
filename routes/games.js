@@ -185,7 +185,7 @@ const gamesDELETEME = require("../util/data");
 router.get('/', async (req, res) => {
     try {
         const games = await db.pool.query("select * from asc_game");
-        var ip = req.body.ip;
+        var ip = request.socket.remoteAddress;
         logger.info("List of all games requested from ip: " + ip);
         res.status(200).send(games);
     } catch (err) {
