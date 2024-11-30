@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 app.get('/', async (req, res) => {
 
   try {
-    const newTodo = await db.query(
+    const newTodo = await db.pool.query(
       'SELECT gameid FROM ascard.asc_game',
       (err, res) => {
         if (err) return next(err);
