@@ -18,20 +18,19 @@ app.use(bodyParser.urlencoded({ extended: true, }));
 app.use(bodyParser.json());
 
 // Routes
-app.get('/', async (req, res) => {
-
-  try {
-    const result = await db.pool.query("SELECT gameid FROM ascard.asc_game");
-  } catch (err) {
-    throw err;
-  }
-
-  res.send('<html><body><p>ASCard WS - Check <a href="https://ws.ascard.net/api-docs">api-docs</a></p></body></html>'); 
-});
+app.get('/', (req, res) => { res.send('<html><body><p>ASCard WS - Check <a href="https://ws.ascard.net/api-docs">api-docs</a></p></body></html>'); });
 app.use("/games", require("./routes/games"));
 
 
-
+// GET
+app.get('/tasks', async (req, res) => {
+  try {
+      const result = await db.pool.query("select * from tasks");
+      res.send(result);
+  } catch (err) {
+      throw err;
+  }
+});
 
 
 
