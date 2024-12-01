@@ -242,7 +242,7 @@ router.put("/:id", async (req, res) => {
         var updateQueryString = "UPDATE asc_game SET ";
 
 
-        var data = JSON.stringify(req.body);
+        //var data = JSON.stringify(req.body);
         data = JSON.parse(data);
         data.forEach(function(item){
             logger.info(item.id + "=" + item.Name);
