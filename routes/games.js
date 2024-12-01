@@ -244,7 +244,11 @@ router.put("/:id", async (req, res) => {
 
         var data = req.body;
         for (const [key, value] of Object.entries(data)) {
-            updateQueryString = updateQueryString + con + `${key}=${value}` + " ";
+            if (typeof value === 'string' || value instanceof String) {
+                updateQueryString = updateQueryString + con + `${key}='${value}'` + " ";
+            } else {
+                updateQueryString = updateQueryString + con + `${key}=${value}` + " ";
+            }
             if (con == "") { con = ","; }
           }
 
