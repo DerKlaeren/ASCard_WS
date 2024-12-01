@@ -242,11 +242,11 @@ router.put("/:id", async (req, res) => {
         var updateQueryString = "UPDATE asc_game SET ";
 
 
-        //var data = JSON.stringify(req.body);
-        data = JSON.parse(data);
-        data.forEach(function(item){
-            logger.info(item.id + "=" + item.Name);
-        });
+        var data = req.body;
+        for (const [key, value] of Object.entries(data)) {
+            console.log(`${key}: ${value}`);
+          }
+
 
 
 
