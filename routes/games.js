@@ -243,31 +243,31 @@ router.put("/:id", async (req, res) => {
             updateQueryString = updateQueryString + "ownerPlayerId=" + ownerPlayerId + ", ";
         }
         if (title !== undefined) {
-            updateQueryString = updateQueryString + "title=" + title + ", ";
+            updateQueryString = updateQueryString + "title='" + title + "', ";
         } 
 		if (background !== undefined) {
-            updateQueryString = updateQueryString + "background=" + background + ", ";
+            updateQueryString = updateQueryString + "background='" + background + "', ";
         }
 		if (era !== undefined) {
-            updateQueryString = updateQueryString + "era=" + era + ", ";
+            updateQueryString = updateQueryString + "era='" + era + "', ";
         }
 		if (yearInGame !== undefined) {
-            updateQueryString = updateQueryString + "yearInGame=" + yearInGame + ", ";
+            updateQueryString = updateQueryString + "yearInGame='" + yearInGame + "', ";
         }
 		if (accessCode !== undefined) {
-            updateQueryString = updateQueryString + "accessCode=" + accessCode + ", ";
+            updateQueryString = updateQueryString + "accessCode='" + accessCode + "', ";
         }
 		if (locked !== undefined) {
             updateQueryString = updateQueryString + "locked=" + locked + ", ";
         }
 		if (scheduled !== undefined) {
-            updateQueryString = updateQueryString + "scheduled=" + scheduled + ", ";
+            updateQueryString = updateQueryString + "scheduled='" + scheduled + "', ";
         }
 		if (started !== undefined) {
-            updateQueryString = updateQueryString + "started=" + started + ", ";
+            updateQueryString = updateQueryString + "started='" + started + "', ";
         }
 		if (finished !== undefined) {
-            updateQueryString = updateQueryString + "finished=" + finished + ", ";
+            updateQueryString = updateQueryString + "finished='" + finished + "' ";
         }
         updateQueryString = updateQueryString + " WHERE gameid=" + game.gameid;
 
