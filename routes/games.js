@@ -256,7 +256,7 @@ router.put("/:id", async (req, res) => {
             logger.info("Game with id " + game.gameid + " updated from ip: " + ip);
         });
 
-        res.sendStatus(204);
+        res.sendStatus(204).json(game);
     } else {
         res.sendStatus(404);
     }
