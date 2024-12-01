@@ -240,6 +240,11 @@ router.put("/:id", async (req, res) => {
 
         var con = "";
         var updateQueryString = "UPDATE asc_game SET ";
+
+        // Hier kann man eine Schleife bauen über den array und dann den query string zusammen bauen
+        // const varToString = varObj => Object.keys(varObj)[0];
+        // const displayName = varToString({ownerPlayerId});
+
         if (ownerPlayerId !== undefined) {
             updateQueryString = updateQueryString + con + "ownerPlayerId=" + ownerPlayerId + " ";
             if (con == "") { con = ","; }
