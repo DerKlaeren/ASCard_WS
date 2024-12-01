@@ -236,12 +236,8 @@ router.put("/:id", async (req, res) => {
     });
 
     if (game) {
-        //const { ownerPlayerId, title, background, era, yearInGame, accessCode, locked, scheduled, started, finished } = req.body;
-
         var con = "";
         var updateQueryString = "UPDATE asc_game SET ";
-
-
         var data = req.body;
         for (const [key, value] of Object.entries(data)) {
             if (typeof value === 'string' || value instanceof String) {
@@ -251,59 +247,12 @@ router.put("/:id", async (req, res) => {
             }
             if (con == "") { con = ","; }
         }
-
-
-
-
-        /*
-                if (ownerPlayerId !== undefined) {
-                    updateQueryString = updateQueryString + con + "ownerPlayerId=" + ownerPlayerId + " ";
-                    if (con == "") { con = ","; }
-                }
-                if (title !== undefined) {
-                    updateQueryString = updateQueryString + con + "title='" + title + "' ";
-                    if (con == "") { con = ","; }
-                } 
-                if (background !== undefined) {
-                    updateQueryString = updateQueryString + con + "background='" + background + "' ";
-                    if (con == "") { con = ","; }
-                }
-                if (era !== undefined) {
-                    updateQueryString = updateQueryString + con + "era='" + era + "' ";
-                    if (con == "") { con = ","; }
-                }
-                if (yearInGame !== undefined) {
-                    updateQueryString = updateQueryString + con + "yearInGame='" + yearInGame + "' ";
-                    if (con == "") { con = ","; }
-                }
-                if (accessCode !== undefined) {
-                    updateQueryString = updateQueryString + con + "accessCode='" + accessCode + "' ";
-                    if (con == "") { con = ","; }
-                }
-                if (locked !== undefined) {
-                    updateQueryString = updateQueryString + con + "locked=" + locked + " ";
-                    if (con == "") { con = ","; }
-                }
-                if (scheduled !== undefined) {
-                    updateQueryString = updateQueryString + con + "scheduled='" + scheduled + "' ";
-                    if (con == "") { con = ","; }
-                }
-                if (started !== undefined) {
-                    updateQueryString = updateQueryString + con + "started='" + started + "' ";
-                    if (con == "") { con = ","; }
-                }
-                if (finished !== undefined) {
-                    updateQueryString = updateQueryString + con + "finished='" + finished + "' ";
-                } */
         updateQueryString = updateQueryString + " WHERE gameid=" + game.gameid;
 
         logger.info(updateQueryString);
 
         db.pool.query(updateQueryString, (error, result) => {
-            if (error) {
-                logger.error(error);
-                throw error;
-            }
+            if (error) throw error;
             logger.info("Game with id " + game.gameid + " updated from ip: " + ip);
         });
 
