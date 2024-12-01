@@ -244,13 +244,14 @@ router.put("/:id", async (req, res) => {
 
         var data = req.body;
         for (const [key, value] of Object.entries(data)) {
-            console.log(`${key}: ${value}`);
+            updateQueryString = updateQueryString + con + `${key}=${value}` + " ";
+            if (con == "") { con = ","; }
           }
 
 
 
 
-
+/*
         if (ownerPlayerId !== undefined) {
             updateQueryString = updateQueryString + con + "ownerPlayerId=" + ownerPlayerId + " ";
             if (con == "") { con = ","; }
@@ -289,7 +290,7 @@ router.put("/:id", async (req, res) => {
         }
 		if (finished !== undefined) {
             updateQueryString = updateQueryString + con + "finished='" + finished + "' ";
-        }
+        } */
         updateQueryString = updateQueryString + " WHERE gameid=" + game.gameid;
 
         db.pool.query(updateQueryString, (error, result) => {
