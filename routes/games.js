@@ -241,14 +241,13 @@ router.put("/:id", async (req, res) => {
         var con = "";
         var updateQueryString = "UPDATE asc_game SET ";
 
-        var data = req.body;
-        data.forEach(function (item) {
-            //const varToString = varObj => Object.keys(varObj)[0];
-            //const displayName = varToString({item});
 
-
+        var data = JSON.stringify(req.body);
+        data = JSON.parse(data);
+        data.forEach(function(item){
             logger.info(item.id + "=" + item.Name);
         });
+
 
 
 
