@@ -9,11 +9,41 @@
 		{
 			"name": "https://ws.ascard.net/games",
 			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://ws.ascard.net/games/4",
+					"protocol": "https",
+					"host": [
+						"ws",
+						"ascard",
+						"net"
+					],
+					"path": [
+						"games",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://ws.ascard.net/games",
+			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\t\"owner\": \"3\",\r\n\t\"title\": \"Test\",\r\n\t\"background\": \"background\",\r\n\t\"era\": \"CLAN INVASION\",\r\n\t\"yearInGame\": \"3052\",\r\n\t\"accessCode\": 223,\r\n\t\"locked\": true,\r\n\t\"scheduled\": \"2024-12-06T08:00:00.000Z\",\r\n\t\"started\": \"2024-12-06T08:00:00.000Z\",\r\n\t\"finished\": \"2024-12-06T08:00:00.000Z\"\r\n}",
+					"raw": "{\r\n\t\"ownerPlayerId\": \"3\",\r\n\t\"title\": \"Test\",\r\n\t\"background\": \"background\",\r\n\t\"era\": \"CLAN INVASION\",\r\n\t\"yearInGame\": \"3052\",\r\n\t\"accessCode\": 223,\r\n\t\"locked\": true,\r\n\t\"scheduled\": \"2024-12-06T08:00:00.000Z\",\r\n\t\"started\": \"2024-12-06T08:00:00.000Z\",\r\n\t\"finished\": \"2024-12-06T08:00:00.000Z\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -30,6 +60,36 @@
 					],
 					"path": [
 						"games"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://ws.ascard.net/games",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"ownerPlayerId\": \"11\",\r\n\t\"title\": \"Second Test\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://ws.ascard.net/games/4",
+					"protocol": "https",
+					"host": [
+						"ws",
+						"ascard",
+						"net"
+					],
+					"path": [
+						"games",
+						"4"
 					]
 				}
 			},
