@@ -238,22 +238,40 @@ router.put("/:id", async (req, res) => {
 	if (game) {
 		const { ownerPlayerId, title, background, era, yearInGame, accessCode, locked, scheduled, started, finished } = req.body;
 
-		let updated = {
-			gameid: game.gameid,
-			ownerPlayerId: ownerPlayerId !== undefined ? ownerPlayerId : game.ownerPlayerId,
-			title: title !== undefined ? title : game.title,
-			background: background !== undefined ? background : game.background,
-			era: era !== undefined ? era : game.era,
-			yearInGame: yearInGame !== undefined ? yearInGame : game.yearInGame,
-			accessCode: accessCode !== undefined ? accessCode : game.accessCode,
-			locked: locked !== undefined ? locked : game.locked,
-			scheduled: scheduled !== undefined ? scheduled : game.scheduled,
-			started: started !== undefined ? started : game.started,
-			finished: finished !== undefined ? finished : game.finished,
-			createdAt: game.createdAt,
-		};
+        var updateQueryString = "UPDATE asc_game SET ";
+        if (ownerPlayerId !== undefined) {
+            updateQueryString = updateQueryString + "ownerPlayerId=" + ownerPlayerId + ", ";
+        }
+        if (title !== undefined) {
+            updateQueryString = updateQueryString + "title=" + title + ", ";
+        } 
+		if (background !== undefined) {
+            updateQueryString = updateQueryString + "background=" + background + ", ";
+        }
+		if (era !== undefined) {
+            updateQueryString = updateQueryString + "era=" + era + ", ";
+        }
+		if (yearInGame !== undefined) {
+            updateQueryString = updateQueryString + "yearInGame=" + yearInGame + ", ";
+        }
+		if (accessCode !== undefined) {
+            updateQueryString = updateQueryString + "accessCode=" + accessCode + ", ";
+        }
+		if (locked !== undefined) {
+            updateQueryString = updateQueryString + "locked=" + locked + ", ";
+        }
+		if (scheduled !== undefined) {
+            updateQueryString = updateQueryString + "scheduled=" + scheduled + ", ";
+        }
+		if (started !== undefined) {
+            updateQueryString = updateQueryString + "started=" + started + ", ";
+        }
+		if (finished !== undefined) {
+            updateQueryString = updateQueryString + "finished=" + finished + ", ";
+        }
+        updateQueryString = updateQueryString + " WHERE gameid=" + game.gameid;
 
-        db.pool.query("UPDATE asc_game SET gameid=?, ownerPlayerId=?, title='?', background='?', era='?', yearInGame='?', accessCode='?', locked=?, scheduled='?', started='?', finished='?', createdAt='?' WHERE gameid = ?", [Object.values(updated), game.gameid], (error, result) => {
+        db.pool.query(updateQueryString, (error, result) => {
             if (error) throw error;
             logger.info("Game with id " + game.gameid + " updated from ip: " + ip);
         });
