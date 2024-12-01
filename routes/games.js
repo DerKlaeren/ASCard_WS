@@ -193,50 +193,50 @@ router.get("/:id", async (req, res) => {
     const games = await db.pool.query("SELECT * FROM asc_game");
     logger.info("Game with id " + req.params.id + " requested from ip: " + ip);
 
-	let game = games.find(function (item) {
-		return item.gameid == req.params.id;
-	});
+    let game = games.find(function (item) {
+        return item.gameid == req.params.id;
+    });
 
-	game ? res.status(200).json(game) : res.sendStatus(404);
+    game ? res.status(200).json(game) : res.sendStatus(404);
 });
 
 router.post("/", async (req, res) => {
-	const { ownerPlayerId, title, background, era, yearInGame, accessCode, locked, scheduled, started, finished } = req.body;
+    const { ownerPlayerId, title, background, era, yearInGame, accessCode, locked, scheduled, started, finished } = req.body;
     const games = await db.pool.query("SELECT * FROM asc_game");
     var ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress || null;
 
-	let game = {
-		gameid: games.length + 1,
-		ownerPlayerId: ownerPlayerId,
-		title: title,
-		background: background,
-		era: era,
-		yearInGame: yearInGame,
-		accessCode: accessCode,
-		locked: locked,
-		scheduled: scheduled,
-		started: started,
-		finished: finished !== undefined ? finished : null,
-		createdAt: new Date()
-	};
+    let game = {
+        gameid: games.length + 1,
+        ownerPlayerId: ownerPlayerId,
+        title: title,
+        background: background,
+        era: era,
+        yearInGame: yearInGame,
+        accessCode: accessCode,
+        locked: locked,
+        scheduled: scheduled,
+        started: started,
+        finished: finished !== undefined ? finished : null,
+        createdAt: new Date()
+    };
 
     db.pool.query("INSERT INTO asc_game VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Object.values(game));
 
     logger.info("Game with id " + game.gameid + " created from ip: " + ip);
 
-	res.status(201).json(game);
+    res.status(201).json(game);
 });
 
 router.put("/:id", async (req, res) => {
     var ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress || null;
     const games = await db.pool.query("SELECT * FROM asc_game");
 
-	let game = games.find(function (item) {
-		return item.gameid == req.params.id;
-	});
+    let game = games.find(function (item) {
+        return item.gameid == req.params.id;
+    });
 
-	if (game) {
-		const { ownerPlayerId, title, background, era, yearInGame, accessCode, locked, scheduled, started, finished } = req.body;
+    if (game) {
+        //const { ownerPlayerId, title, background, era, yearInGame, accessCode, locked, scheduled, started, finished } = req.body;
 
         var con = "";
         var updateQueryString = "UPDATE asc_game SET ";
@@ -250,82 +250,87 @@ router.put("/:id", async (req, res) => {
                 updateQueryString = updateQueryString + con + `${key}=${value}` + " ";
             }
             if (con == "") { con = ","; }
-          }
+        }
 
 
 
 
-/*
-        if (ownerPlayerId !== undefined) {
-            updateQueryString = updateQueryString + con + "ownerPlayerId=" + ownerPlayerId + " ";
-            if (con == "") { con = ","; }
-        }
-        if (title !== undefined) {
-            updateQueryString = updateQueryString + con + "title='" + title + "' ";
-            if (con == "") { con = ","; }
-        } 
-		if (background !== undefined) {
-            updateQueryString = updateQueryString + con + "background='" + background + "' ";
-            if (con == "") { con = ","; }
-        }
-		if (era !== undefined) {
-            updateQueryString = updateQueryString + con + "era='" + era + "' ";
-            if (con == "") { con = ","; }
-        }
-		if (yearInGame !== undefined) {
-            updateQueryString = updateQueryString + con + "yearInGame='" + yearInGame + "' ";
-            if (con == "") { con = ","; }
-        }
-		if (accessCode !== undefined) {
-            updateQueryString = updateQueryString + con + "accessCode='" + accessCode + "' ";
-            if (con == "") { con = ","; }
-        }
-		if (locked !== undefined) {
-            updateQueryString = updateQueryString + con + "locked=" + locked + " ";
-            if (con == "") { con = ","; }
-        }
-		if (scheduled !== undefined) {
-            updateQueryString = updateQueryString + con + "scheduled='" + scheduled + "' ";
-            if (con == "") { con = ","; }
-        }
-		if (started !== undefined) {
-            updateQueryString = updateQueryString + con + "started='" + started + "' ";
-            if (con == "") { con = ","; }
-        }
-		if (finished !== undefined) {
-            updateQueryString = updateQueryString + con + "finished='" + finished + "' ";
-        } */
+        /*
+                if (ownerPlayerId !== undefined) {
+                    updateQueryString = updateQueryString + con + "ownerPlayerId=" + ownerPlayerId + " ";
+                    if (con == "") { con = ","; }
+                }
+                if (title !== undefined) {
+                    updateQueryString = updateQueryString + con + "title='" + title + "' ";
+                    if (con == "") { con = ","; }
+                } 
+                if (background !== undefined) {
+                    updateQueryString = updateQueryString + con + "background='" + background + "' ";
+                    if (con == "") { con = ","; }
+                }
+                if (era !== undefined) {
+                    updateQueryString = updateQueryString + con + "era='" + era + "' ";
+                    if (con == "") { con = ","; }
+                }
+                if (yearInGame !== undefined) {
+                    updateQueryString = updateQueryString + con + "yearInGame='" + yearInGame + "' ";
+                    if (con == "") { con = ","; }
+                }
+                if (accessCode !== undefined) {
+                    updateQueryString = updateQueryString + con + "accessCode='" + accessCode + "' ";
+                    if (con == "") { con = ","; }
+                }
+                if (locked !== undefined) {
+                    updateQueryString = updateQueryString + con + "locked=" + locked + " ";
+                    if (con == "") { con = ","; }
+                }
+                if (scheduled !== undefined) {
+                    updateQueryString = updateQueryString + con + "scheduled='" + scheduled + "' ";
+                    if (con == "") { con = ","; }
+                }
+                if (started !== undefined) {
+                    updateQueryString = updateQueryString + con + "started='" + started + "' ";
+                    if (con == "") { con = ","; }
+                }
+                if (finished !== undefined) {
+                    updateQueryString = updateQueryString + con + "finished='" + finished + "' ";
+                } */
         updateQueryString = updateQueryString + " WHERE gameid=" + game.gameid;
 
+        logger.info(updateQueryString);
+
         db.pool.query(updateQueryString, (error, result) => {
-            if (error) throw error;
+            if (error) {
+                logger.error(error);
+                throw error;
+            }
             logger.info("Game with id " + game.gameid + " updated from ip: " + ip);
         });
 
-		res.sendStatus(204);
-	} else {
-		res.sendStatus(404);
-	}
+        res.sendStatus(204);
+    } else {
+        res.sendStatus(404);
+    }
 });
 
 router.delete("/:id", async (req, res) => {
     var ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress || null;
     const games = await db.pool.query("SELECT * FROM asc_game");
 
-	let game = games.find(function (item) {
-		return item.gameid == req.params.id;
-	});
+    let game = games.find(function (item) {
+        return item.gameid == req.params.id;
+    });
 
-	if (game) {
+    if (game) {
         db.pool.query("DELETE FROM asc_game WHERE gameid = ?", [game.gameid], (error, result) => {
             if (error) throw error;
             logger.info("Game with id " + game.gameid + " deleted from ip: " + ip);
         });
-	} else {
-		return res.sendStatus(404);
-	}
+    } else {
+        return res.sendStatus(404);
+    }
 
-	res.sendStatus(204);
+    res.sendStatus(204);
 });
 
 module.exports = router;
