@@ -271,10 +271,16 @@ router.delete("/:id", async (req, res) => {
     });
 
     if (game) {
+        logger.info(updateQueryString);
+        logger.info('Game: ' + game.gameid);
+        logger.info('NOT DELETING ANYTHING! CHECK CODE!');
+
+/* 
         db.pool.query("DELETE FROM asc_game WHERE gameid = ?", [game.gameid], (error, result) => {
             if (error) throw error;
             logger.info("Game with id " + game.gameid + " deleted from ip: " + ip);
         });
+*/
     } else {
         return res.sendStatus(404);
     }

@@ -10,10 +10,6 @@ const {
     DATABASE = 'database'
 } = process.env
 
-logger.info("Host: " + DB_HOST);
-logger.info("User: " + DB_USER);
-logger.info("Database: " + DATABASE);
-
 // Create a connection pool
 var pool = mariadb.createPool({
     host: DB_HOST,
@@ -23,7 +19,10 @@ var pool = mariadb.createPool({
     database: DATABASE
 });
 
-logger.info("Pool: " + pool);
+/* logger.info("Host: " + DB_HOST);
+logger.info("User: " + DB_USER);
+logger.info("Database: " + DATABASE);
+logger.info("Pool: " + pool); */
 
 // Expose a method to establish connection with MariaDB SkySQL
 module.exports = Object.freeze({
