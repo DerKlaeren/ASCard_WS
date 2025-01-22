@@ -47,7 +47,7 @@ app.use('/', (req, res) => {
         {
             pageTitle: 'ASCard Webservice',
             activeHome: true,
-            detailCSS: false,
+            navCSS: true,
             // layout: false
         })
 });
