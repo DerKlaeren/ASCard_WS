@@ -15,9 +15,9 @@ const { specs } = require('./swagger.js');
 logger.info('Starting up ASCard Webservice...');
 
 var handlebars = expHbs.create({
-    defaultLayout: 'main-layout', 
+    defaultLayout: 'main-layout',
     extname: '.handlebars',
-    layoutsDir: path.join(__dirname, 'views/layouts'),
+    layoutsDir: path.join(__dirname, 'views', 'layouts'),
     helpers: {
         substr: function (length, context, options) {
             if (context.length > length) {
@@ -42,6 +42,14 @@ app.use("/games", require("./routes/games"));
 //app.use("/players", require("./routes/players"));
 
 //app.use('/', (req, res) => { res.sendFile(path.join(__dirname, "views", "home.html")); });
-app.use('/', (req, res) => { res.render('home.handlebars', { pageTitle: 'ASCard Webservice' }) });
+app.use('/', (req, res) => {
+    res.render('home.handlebars',
+        {
+            pageTitle: 'ASCard Webservice',
+            activeHome: true,
+            detailCSS: false,
+            // layout: false
+        })
+});
 
 app.listen(port, () => { logger.info(`Web service listening at http://localhost:${port}`); });

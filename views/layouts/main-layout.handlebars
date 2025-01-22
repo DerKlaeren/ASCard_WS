@@ -6,13 +6,15 @@
     <title>{{ pageTitle }}</title>
     <link rel="stylesheet" href="/css/main.css">
     {{#if detailCSS }}
-        <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/main.css">
     {{/if}}
 </head>
+<body>
     <nav>
         <ul>
-            <li>testnav</li>
+            <li><a class="{{#if activeHome}}active{{/if}}">testnav</a></li>
         </ul>
     </nav>
     {{{ body }}}
+</body>
 </html>
