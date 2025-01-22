@@ -8,14 +8,15 @@ const path = require('path');
 const app = express();
 const port = 3000;
 
-const expressHandleBars = require('express-handlebars')
+const expHbs = require('express-handlebars');
 const { logger } = require('./logger.js');
 const { specs } = require('./swagger.js');
 
 logger.info('Starting up ASCard Webservice...');
 
-app.engine('handlebars', expressHandleBars());
-app.set('view engine', 'handlebars');
+var handlebars = expHbs.create({ defaultLayout: 'layout', extname: '.handlebars', helpers: handlebarsHelpers });
+app.engine('.handlebars', handlebars.engine);
+app.set('view engine', '.handlebars');
 app.set('views', 'views');
 
 app.use(bodyParser.urlencoded({ extended: true, }));
