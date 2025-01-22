@@ -15,7 +15,9 @@ const { specs } = require('./swagger.js');
 logger.info('Starting up ASCard Webservice...');
 
 var handlebars = expHbs.create({
-    defaultLayout: 'layout', extname: '.handlebars',
+    defaultLayout: 'main-layout', 
+    extname: '.handlebars',
+    layoutsDir: path.join(__dirname, 'views/layouts'),
     helpers: {
         substr: function (length, context, options) {
             if (context.length > length) {
