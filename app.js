@@ -14,7 +14,18 @@ const { specs } = require('./swagger.js');
 
 logger.info('Starting up ASCard Webservice...');
 
-var handlebars = expHbs.create({ defaultLayout: 'layout', extname: '.handlebars', helpers: handlebarsHelpers });
+var handlebars = expHbs.create({
+    defaultLayout: 'layout', extname: '.handlebars',
+    helpers: {
+        substr: function (length, context, options) {
+            if (context.length > length) {
+                return context.substring(0, length) + "...";
+            } else {
+                return context;
+            }
+        }
+    }
+});
 app.engine('.handlebars', handlebars.engine);
 app.set('view engine', '.handlebars');
 app.set('views', 'views');
