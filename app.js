@@ -43,7 +43,7 @@ app.use(
   swaggerUi.serve,
   swaggerUi.setup(specs, { explorer: true })
 );
-app.use("/auth", require("./routes/auth.js"));
+//app.use("/auth", require("./routes/auth.js"));
 //app.use("/players", require("./routes/players"));
 app.use("/games", require("./routes/games"));
 //app.use("/units", require("./routes/units"));
