@@ -45,11 +45,10 @@
 const { logger } = require("../logger.js");
 const db = require("../db.js");
 
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
-
 const express = require("express");
 const router = express.Router();
+
+const bcrypt = require("bcryptjs");
 
 /* // User registration
 router.post("/register", async (req, res) => {

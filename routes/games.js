@@ -178,9 +178,26 @@ const router = express.Router();
 
 /* const authenticateJWT = require("./auth.js____"); */
 
-router.get("/protected", authenticateJWT, (req, res) => {
+/* router.get("/protected", authenticateJWT, (req, res) => {
   res.send(`Hello ${req.user.username}, you have accessed a protected route!`);
-});
+}); */
+
+const jwt = require("jsonwebtoken");
+
+const authenticateJWT = (req, res, next) => {
+  const token = req.headers.authorization;
+  if (token) {
+    jwt.verify(token, SECRET_KEY, (err, user) => {
+      if (err) {
+        return res.sendStatus(403);
+      }
+      req.user = user;
+      next();
+    });
+  } else {
+    res.sendStatus(401);
+  }
+};
 
 router.get("/", async (req, res) => {
   try {
