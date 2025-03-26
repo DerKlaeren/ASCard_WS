@@ -63,7 +63,7 @@ app.use("/games", require("./routes/games"));
  * tags:
  *   name: Login
  *   description: The ASCard API, Login to get a token
- * /games:
+ * /login:
  *   post:
  *     summary: Login user
  *     tags: [Games]
