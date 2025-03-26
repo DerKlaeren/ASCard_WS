@@ -44,7 +44,7 @@
  *       500:
  *         description: Server error
  */
-const { logger } = require("../logger.js");
+/* const { logger } = require("../logger.js"); */
 const users = [
   { id: 1, username: "user1", password: bcrypt.hashSync("password1", 8) },
 ];
