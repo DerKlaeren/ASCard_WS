@@ -45,13 +45,18 @@
  *         description: Server error
  */
 const { logger } = require("../logger.js");
-const users = [
-  { id: 1, username: "user1", password: bcrypt.hashSync("password1", 8) },
-];
+
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
+
 const db = require("../db.js");
 
 const express = require("express");
 const router = express.Router();
+
+const users = [
+  { id: 1, username: "user1", password: bcrypt.hashSync("password1", 8) },
+];
 
 const SECRET_KEY = "your_jwt_secret";
 

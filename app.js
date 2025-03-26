@@ -3,8 +3,6 @@
  * Main
  */
 const express = require("express");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
 
 const bodyParser = require("body-parser");
 const path = require("path");
