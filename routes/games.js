@@ -176,30 +176,11 @@ const db = require("../db.js");
 const express = require("express");
 const router = express.Router();
 
-/* const authenticateJWT = require("./auth.js____"); */
+const SECRET_KEY = require("../secret");
+const verifyToken = require("../auth");
 
-/* router.get("/protected", authenticateJWT, (req, res) => {
-  res.send(`Hello ${req.user.username}, you have accessed a protected route!`);
-}); */
-
-/* const jwt = require("jsonwebtoken");
-
-const authenticateJWT = (req, res, next) => {
-  const token = req.headers.authorization;
-  if (token) {
-    jwt.verify(token, SECRET_KEY, (err, user) => {
-      if (err) {
-        return res.sendStatus(403);
-      }
-      req.user = user;
-      next();
-    });
-  } else {
-    res.sendStatus(401);
-  }
-}; */
-
-router.get("/", async (req, res) => {
+//router.get("/", async (req, res) => {
+router.get("/", verifyToken, async (req, res) => {
   try {
     var ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
     const games = await db.pool.query("SELECT * FROM asc_game");
