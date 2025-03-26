@@ -51,27 +51,6 @@ const bcrypt = require("bcryptjs");
 const express = require("express");
 const router = express.Router();
 
-const users = [
-  { id: 1, username: "user1", password: bcrypt.hashSync("password1", 8) },
-];
-
-const SECRET_KEY = "your_jwt_secret";
-
-export const authenticateJWT = (req, res, next) => {
-  const token = req.headers.authorization;
-  if (token) {
-    jwt.verify(token, SECRET_KEY, (err, user) => {
-      if (err) {
-        return res.sendStatus(403);
-      }
-      req.user = user;
-      next();
-    });
-  } else {
-    res.sendStatus(401);
-  }
-};
-
 /* // User registration
 router.post("/register", async (req, res) => {
   try {

@@ -176,11 +176,11 @@ const db = require("../db.js");
 const express = require("express");
 const router = express.Router();
 
-/* const authenticateJWT = require("./auth.js____");
+/* const authenticateJWT = require("./auth.js____"); */
 
-app.get("/protected", authenticateJWT, (req, res) => {
+router.get("/protected", authenticateJWT, (req, res) => {
   res.send(`Hello ${req.user.username}, you have accessed a protected route!`);
-}); */
+});
 
 router.get("/", async (req, res) => {
   try {
