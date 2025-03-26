@@ -176,6 +176,12 @@ const db = require("../db.js");
 const express = require("express");
 const router = express.Router();
 
+const authenticateJWT = require("./auth.js");
+
+app.get("/protected", authenticateJWT, (req, res) => {
+  res.send(`Hello ${req.user.username}, you have accessed a protected route!`);
+});
+
 router.get("/", async (req, res) => {
   try {
     var ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
@@ -200,7 +206,7 @@ router.get("/:id", async (req, res) => {
   game ? res.status(200).json(game) : res.sendStatus(404);
 });
 
-/* router.post("/", async (req, res) => {
+router.post("/", async (req, res) => {
   const {
     ownerPlayerId,
     title,
@@ -231,17 +237,18 @@ router.get("/:id", async (req, res) => {
     createdAt: new Date(),
   };
 
-  db.pool.query(
+  /*   db.pool.query(
     "INSERT INTO asc_game VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
     Object.values(game)
-  );
+  ); */
 
-  logger.info("Game with id " + game.gameid + " created from ip: " + ip);
+  //logger.info("Game with id " + game.gameid + " created from ip: " + ip);
+  logger.info("NOT CREATING ANYTHING! CHECK CODE!");
 
   res.status(201).json(game);
-}); */
+});
 
-/* router.put("/:id", async (req, res) => {
+router.put("/:id", async (req, res) => {
   var ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
   const games = await db.pool.query("SELECT * FROM asc_game");
 
@@ -265,20 +272,22 @@ router.get("/:id", async (req, res) => {
     }
     updateQueryString = updateQueryString + " WHERE gameid=" + game.gameid;
 
-    logger.info(updateQueryString);
-
-    db.pool.query(updateQueryString, (error, result) => {
+    /*     db.pool.query(updateQueryString, (error, result) => {
       if (error) throw error;
       logger.info("Game with id " + game.gameid + " updated from ip: " + ip);
-    });
+    }); */
+
+    //logger.info(updateQueryString);
+    //logger.info("Game with id " + game.gameid + " updated from ip: " + ip);
+    logger.info("NOT UPDATING ANYTHING! CHECK CODE!");
 
     res.sendStatus(204).json(game);
   } else {
     res.sendStatus(404);
   }
-}); */
+});
 
-/* router.delete("/:id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
   var ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
   const games = await db.pool.query("SELECT * FROM asc_game");
 
@@ -287,23 +296,23 @@ router.get("/:id", async (req, res) => {
   });
 
   if (game) {
-    logger.info(updateQueryString);
-    logger.info("Game: " + game.gameid);
-    logger.info("NOT DELETING ANYTHING! CHECK CODE!");
-
-    db.pool.query(
+    /*     db.pool.query(
       "DELETE FROM asc_game WHERE gameid = ?",
       [game.gameid],
       (error, result) => {
         if (error) throw error;
         logger.info("Game with id " + game.gameid + " deleted from ip: " + ip);
       }
-    );
+    ); */
+
+    //logger.info(updateQueryString);
+    //logger.info("Game: " + game.gameid);
+    logger.info("NOT DELETING ANYTHING! CHECK CODE!");
   } else {
     return res.sendStatus(404);
   }
 
   res.sendStatus(204);
-}); */
+});
 
 module.exports = router;

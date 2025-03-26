@@ -2,19 +2,31 @@
  * @swagger
  * components:
  *   schemas:
- *     Game:
+ *     Player:
  *       type: object
  *       required:
- *         - ownerPlayerId
- *         - title
- *         - background
- *         - era
- *         - yearInGame
- *         - accessCode
- *         - locked
- *         - scheduled
- *         - started
- *         - finished
+ *         - playerId
+ *         - npc
+ *         - login_enabled
+ *         - name
+ *         - password
+ *         - password_god
+ *         - admin
+ *         - image
+ *         - factionId
+ *         - hostedGameId
+ *         - gameId
+ *         - teamId
+ *         - commandId
+ *         - opfor
+ *         - bid_pv
+ *         - bid_tonnage
+ *         - bid_winner
+ *         - round
+ *         - active_ingame
+ *         - last_unit_opened
+ *         - last_login
+ *         - Updated
  *       properties:
  *         gameid:
  *           type: string
