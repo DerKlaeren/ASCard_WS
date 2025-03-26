@@ -15,12 +15,6 @@ const { specs } = require("./swagger.js");
 
 logger.info("Starting up ASCard Webservice...");
 
-const users = [
-  { id: 1, username: "user1", password: bcrypt.hashSync("password1", 8) },
-];
-
-const SECRET_KEY = "your_jwt_secret";
-
 var handlebars = expHbs.create({
   defaultLayout: "main-layout",
   extname: ".handlebars",
