@@ -182,7 +182,7 @@ const router = express.Router();
   res.send(`Hello ${req.user.username}, you have accessed a protected route!`);
 }); */
 
-const jwt = require("jsonwebtoken");
+/* const jwt = require("jsonwebtoken");
 
 const authenticateJWT = (req, res, next) => {
   const token = req.headers.authorization;
@@ -197,7 +197,7 @@ const authenticateJWT = (req, res, next) => {
   } else {
     res.sendStatus(401);
   }
-};
+}; */
 
 router.get("/", async (req, res) => {
   try {
