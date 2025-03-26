@@ -70,7 +70,7 @@ router.post("/register", async (req, res) => {
 }); */
 
 // User login
-router.post("/login", (req, res) => {
+/* router.post("/login", (req, res) => {
   const { username, password } = req.body;
   const user = users.find((u) => u.username === username);
   if (user && bcrypt.compareSync(password, user.password)) {
@@ -83,4 +83,4 @@ router.post("/login", (req, res) => {
   } else {
     res.status(401).send("Invalid credentials");
   }
-});
+}); */
