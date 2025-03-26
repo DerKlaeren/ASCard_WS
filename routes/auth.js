@@ -38,18 +38,15 @@
  *       200:
  *         description: Login to get token.
  *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Player'
+ *           string
  *       500:
  *         description: Server error
  */
 const { logger } = require("../logger.js");
+const db = require("../db.js");
 
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-
-const db = require("../db.js");
 
 const express = require("express");
 const router = express.Router();
