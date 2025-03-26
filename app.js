@@ -98,10 +98,6 @@ app.post("/login", (req, res) => {
   }
 });
 
-/* app.get("/protected", verifyToken, (req, res) => {
-  res.send(`Hello ${req.user.username}, you have accessed a protected route!`);
-}); */
-
 app.use("/", (req, res) => {
   res.render("home.handlebars", {
     pageTitle: "ASCard Webservice",
