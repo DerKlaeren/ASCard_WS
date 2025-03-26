@@ -179,8 +179,9 @@ const router = express.Router();
 const SECRET_KEY = require("../secret");
 const verifyToken = require("../auth");
 
-//router.get("/", async (req, res) => {
-router.get("/", verifyToken, async (req, res) => {
+router.get("/", async (req, res) => {
+  //router.get("/", verifyToken, async (req, res) => {
+
   try {
     var ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
     const games = await db.pool.query("SELECT * FROM asc_game");
