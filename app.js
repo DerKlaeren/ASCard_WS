@@ -45,8 +45,7 @@ app.use(
   swaggerUi.setup(specs, { explorer: true })
 );
 app.use("/login", require("./routes/login"));
-app.use("/register", require("./routes/register"));
-//app.use("/players", require("./routes/players"));
+app.use("/player", require("./routes/player.js"));
 app.use("/games", require("./routes/games"));
 //app.use("/units", require("./routes/units"));
 

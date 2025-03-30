@@ -2,10 +2,30 @@
  * @swagger
  * components:
  *   schemas:
+ *     NewPlayerRequest:
+ *       type: object
+ *       required:
+ *         - username
+ *         - password
+ *         - faction
+ *       properties:
+ *         username:
+ *           type: string
+ *           description: The name of the player (user)
+ *         password:
+ *           type: string
+ *           description: The password
+ *         faction:
+ *           type: string
+ *           description: shortname of the desired faction
+ *       example:
+ *         username: Slasher
+ *         password: secretpassword
+ *         faction: LA
  *     Player:
  *       type: object
  *       required:
- *         - playerId
+ *         - playerid
  *         - npc
  *         - login_enabled
  *         - name
@@ -13,11 +33,11 @@
  *         - password_god
  *         - admin
  *         - image
- *         - factionId
- *         - hostedGameId
- *         - gameId
- *         - teamId
- *         - commandId
+ *         - factionid
+ *         - hostedgameid
+ *         - gameid
+ *         - teamid
+ *         - commandid
  *         - opfor
  *         - bid_pv
  *         - bid_tonnage
@@ -26,102 +46,119 @@
  *         - active_ingame
  *         - last_unit_opened
  *         - last_login
- *         - Updated
  *       properties:
- *         gameid:
- *           type: string
- *           description: The auto-generated id of the game
- *         ownerPlayerId:
- *           type: string
- *           description: The player this game is assigned to
- *         title:
- *           type: string
- *           description: The title of the game
- *         background:
- *           type: string
- *           description: Background to this game
- *         era:
- *           type: string
- *           description: One of the eras STAR LEAGUE, SUCCESSION WARS, CLAN INVASION, CIVIL WAR, JIHAD, DARK AGE, ILCLAN
- *         yearInGame:
- *           type: string
- *           description: The year in the BTU timeline
- *         accessCode:
- *           type: string
- *           description: Access code
- *         locked:
+ *         playerid:
+ *           type: number
+ *           description: The player id
+ *         npc:
  *           type: boolean
- *           description: Whether the game is locked (no one can join anymore)
- *         scheduled:
+ *           description: Player character (PC) or non-player character (NPC)
+ *         login_enabled:
+ *           type: boolean
+ *           description: Login enabled or disabled
+ *         name:
+ *           type: string
+ *           description: Name of the player
+ *         password:
+ *           type: string
+ *           description: Password of the player
+ *         password_god:
+ *           type: string
+ *           description: God access
+ *         admin:
+ *           type: boolean
+ *           description: Administrator
+ *         image:
+ *           type: string
+ *           description: User image
+ *         factionid:
+ *           type: number
+ *           description: Preferred faction id
+ *         hostedgameid:
+ *           type: number
+ *           description: The game currently hosted by this player
+ *         gameid:
+ *           type: number
+ *           description: The game currently joined by this player
+ *         teamid:
+ *           type: number
+ *           description: The team
+ *         commandid:
+ *           type: number
+ *           description: The command
+ *         opfor:
+ *           type: boolean
+ *           description: OpFor or BlueFor
+ *         bid_pv:
+ *           type: number
+ *           description: Pointvalue currently in bid
+ *         bid_tonnage:
+ *           type: number
+ *           description: Tonnage currently in bid
+ *         bid_winner:
+ *           type: boolean
+ *           description: Lowest bid in current game or not
+ *         round:
+ *           type: number
+ *           description: The current round
+ *         active_ingame:
+ *           type: boolean
+ *           description: Active in current game (has active units)
+ *         last_unit_opened:
+ *           type: string
+ *           description: The last unit that was opened
+ *         last_login:
  *           type: string
  *           format: date
- *           description: When the game will start
- *         started:
- *           type: string
- *           format: date
- *           description: Whether the game has been finished
- *         finished:
- *           type: string
- *           format: date
- *           description: Whether the game has been finished
- *         createdAt:
- *           type: string
- *           format: date
- *           description: The date the game was added
+ *           description: The last login date
  *       example:
- *         gameid: 543
- *         ownerPlayerId: 2
- *         title: Northwind Planetary Assault
- *         background: The planetary assault on Northwind by Clan Snow Raven
- *         era: CLAN INVASION
- *         yearInGame: 3052
- *         accessCode: xxx
- *         locked: true
- *         scheduled: 2024-12-06T08:00:00.000Z
- *         started: 2024-12-06T08:00:00.000Z
- *         finished: null
- *         createdAt: 2024-11-29T04:05:06.157Z
+ *         playerid: 12
+ *         npc: false
+ *         login_enabled: true
+ *         name: Sleesh
+ *         password: secretpw
+ *         password_god: evenmoresecretpw
+ *         admin: false
+ *         image: 922.png
+ *         factionid: 23
+ *         hostedgameid: 15
+ *         gameid: 13
+ *         teamid: 1
+ *         commandid: 34
+ *         opfor: false
+ *         bid_pv: 432
+ *         bid_tonnage: 3000
+ *         bid_winner: false
+ *         round: 34
+ *         active_ingame: false
+ *         last_unit_opened: last_unit_url
+ *         last_login: 2024-11-29T04:05:06.157Z
  */
 
 /**
  * @swagger
  * tags:
- *   name: Game
- *   description: The ASCard API
- * /games:
- *   get:
- *     summary: Lists all games
- *     tags: [Games]
+ *   name: Player
+ *   description: Player management
+ * /:
+ *   post:
+ *     summary: Player registration
+ *     tags: [Player]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/NewPlayerRequest'
  *     responses:
  *       200:
- *         description: The list of all games
+ *         description: The newly registered player
  *         content:
  *           application/json:
  *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Game'
- * /games/{id}:
- *   get:
- *     summary: Get the game by id
- *     tags: [Games]
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: string
- *         required: true
- *         description: The game id
- *     responses:
- *       200:
- *         description: The game response by id
- *         contens:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Game'
- *       404:
- *         description: The game was not found
-
+ *               $ref: '#/components/schemas/Player'
+ *       500:
+ *         description: Server error
  */
 const { logger } = require("../logger.js");
 const db = require("../db.js");
@@ -129,28 +166,23 @@ const db = require("../db.js");
 const express = require("express");
 const router = express.Router();
 
-router.get("/", async (req, res) => {
-  try {
-    var ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
-    const games = await db.pool.query("SELECT * FROM asc_game");
-    logger.info("List of all games requested from ip: " + ip);
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const SECRET_KEY = require("../secret.js");
 
-    res.status(200).send(games);
-  } catch (err) {
-    throw err;
-  }
-});
-
-router.get("/:id", async (req, res) => {
-  var ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
-  const games = await db.pool.query("SELECT * FROM asc_game");
-  logger.info("Game with id " + req.params.id + " requested from ip: " + ip);
-
-  let game = games.find(function (item) {
-    return item.gameid == req.params.id;
-  });
-
-  game ? res.status(200).json(game) : res.sendStatus(404);
+router.post("/", (req, res) => {
+  /*   const { username, password } = req.body;
+  const user = users.find((u) => u.username === username);
+  if (user && bcrypt.compareSync(password, user.password)) {
+    const token = jwt.sign(
+      { id: user.id, username: user.username },
+      SECRET_KEY,
+      { expiresIn: "1h" }
+    );
+    res.json({ token });
+  } else {
+    res.status(401).send("Invalid credentials");
+  } */
 });
 
 module.exports = router;

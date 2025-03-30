@@ -26,7 +26,7 @@
  *           type: string
  *           description: The access token
  *       example:
- *         token: eyJhbGciOiJIUzI1NiIsInR5MCwiZXhwIjoxNzQzMDEwODEwfQ.i4Pis6izCbkDetQtDJCj_lOMQtQpc6aeynRLPpmEfI8
+ *         token: eyJhb...ynRLPpmEfI8
  */
 
 /**

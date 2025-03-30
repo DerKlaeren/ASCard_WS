@@ -17,10 +17,10 @@
  *         - finished
  *       properties:
  *         gameid:
- *           type: string
+ *           type: number
  *           description: The auto-generated id of the game
  *         ownerPlayerId:
- *           type: string
+ *           type: number
  *           description: The player this game is assigned to
  *         title:
  *           type: string
