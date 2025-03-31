@@ -31,7 +31,9 @@
  *         - name
  *         - password
  *         - password_god
+ *         - password_phoenix
  *         - admin
+ *         - godadmin
  *         - image
  *         - factionid
  *         - hostedgameid
@@ -65,9 +67,15 @@
  *         password_god:
  *           type: string
  *           description: God access
+ *         password_phoenix:
+ *           type: string
+ *           description: Password for the phoenix reimplementation
  *         admin:
  *           type: boolean
  *           description: Administrator
+ *         godadmin:
+ *           type: boolean
+ *           description: Administrator with god privileges
  *         image:
  *           type: string
  *           description: User image
@@ -118,7 +126,9 @@
  *         name: Sleesh
  *         password: secretpw
  *         password_god: evenmoresecretpw
+ *         password_phoenix: equalysecretbutcompletlydifferentpassword
  *         admin: false
+ *         godadmin: false
  *         image: 922.png
  *         factionid: 23
  *         hostedgameid: 15
