@@ -77,7 +77,7 @@ const SECRET_KEY = require("../secret");
 const verifyToken = require("../auth");
 
 router.get("/", async (req, res) => {
-  //router.get("/", verifyToken, async (req, res) => {
+  //router.get("/", verifyToken, async (req, res) => { 
 
   try {
     var ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
