@@ -94,10 +94,11 @@ router.get("/:id", async (req, res) => {
   var ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
   const factions = await db.pool.query("SELECT * FROM asc_faction");
   logger.info("Faction with id " + req.params.id + " requested from ip: " + ip);
+  logger.info("Resultset factions " + factions );
 
   let faction = factions.find(function (item) {
     return item.factionid == req.params.id;
   });
 
-  game ? res.status(200).json(game) : res.sendStatus(404);
+  faction ? res.status(200).json(faction) : res.sendStatus(404);
 });
