@@ -197,9 +197,24 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+/* router.get("/:id", async (req, res) => {
   var ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
   const games = await db.pool.query("SELECT * FROM asc_game");
+  logger.info("Game with id " + req.params.id + " requested from ip: " + ip);
+
+  let game = games.find(function (item) {
+    return item.gameid == req.params.id;
+  });
+
+  game ? res.status(200).json(game) : res.sendStatus(404);
+}); */
+
+router.get("/:id", async (req, res) => {
+  var ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
+  const games = await db.pool.query(
+    "SELECT * FROM asc_game g, asc_player p WHERE g.gameId = p.gameId AND g.gameId = ?",
+    [req.params.id]
+  );
   logger.info("Game with id " + req.params.id + " requested from ip: " + ip);
 
   let game = games.find(function (item) {
