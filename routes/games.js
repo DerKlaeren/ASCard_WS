@@ -214,7 +214,7 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   var ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
   const games = await db.pool.query(
-    "SELECT g.* FROM asc_game g JOIN asc_player p ON g.gameid = p.gameid WHERE g.gameid = ?",
+    "SELECT g.*, p.* FROM asc_game g JOIN asc_player p ON g.gameid = p.gameid WHERE g.gameid = ?",
     [req.params.id]
   );
   /*   const players = await db.pool.query(
