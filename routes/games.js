@@ -5,6 +5,7 @@
  *     Game:
  *       type: object
  *       required:
+ *         - gameid
  *         - ownerPlayerId
  *         - title
  *         - background
@@ -214,7 +215,42 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   var ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
   const games = await db.pool.query(
-    "SELECT g.*, p.* FROM asc_game g JOIN asc_player p ON g.gameid = p.gameid WHERE g.gameid = ?",
+    "SELECT " +
+      "g.gameid, " +
+      "g.ownerPlayerId, " +
+      "g.title, " +
+      "g.background, " +
+      "g.era, " +
+      "g.yearInGame, " +
+      "g.accessCode, " +
+      "g.locked, " +
+      "g.scheduled, " +
+      "g.started, " +
+      "g.finished, " +
+      "p.playerid, " +
+      "p.npc, " +
+      "p.login_enabled, " +
+      "p.name, " +
+      "p.password, " +
+      "p.password_god, " +
+      "p.password_phoenix, " +
+      "p.admin, " +
+      "p.godadmin, " +
+      "p.image, " +
+      "p.factionid, " +
+      "p.hostedgameid, " +
+      //      "p.gameid, " +
+      "p.teamid, " +
+      "p.commandid, " +
+      "p.opfor, " +
+      "p.bid_pv, " +
+      "p.bid_tonnage, " +
+      "p.bid_winner, " +
+      "p.round, " +
+      "p.active_ingame, " +
+      "p.last_unit_opened, " +
+      "p.last_login " +
+      "FROM asc_game g JOIN asc_player p ON g.gameid = p.gameid WHERE g.gameid = ?",
     [req.params.id]
   );
   /*   const players = await db.pool.query(
