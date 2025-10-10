@@ -15,6 +15,7 @@
  *         - scheduled
  *         - started
  *         - finished
+ *         - player
  *       properties:
  *         gameid:
  *           type: number
