@@ -15,7 +15,7 @@
  *         - scheduled
  *         - started
  *         - finished
- *         - player
+ *         - players
  *       properties:
  *         gameid:
  *           type: number
@@ -57,7 +57,7 @@
  *           type: string
  *           format: date
  *           description: The date the game was added
- *         player:
+ *         players:
  *           type: array
  *           items:
  *             $ref: "#/components/schemas/Player"
@@ -74,6 +74,7 @@
  *         started: 2024-12-06T08:00:00.000Z
  *         finished: null
  *         createdAt: 2024-11-29T04:05:06.157Z
+ *         players: [{ playerid: 12, name: "Sleesh" }, { playerid: 15, name: "AnotherPlayer" }]
  */
 
 /**
@@ -213,9 +214,14 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   var ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
   const games = await db.pool.query(
-    "SELECT g.gameid, g.accessCode, p.name FROM asc_game g, asc_player p WHERE g.gameId = p.gameId AND g.gameId = ?",
+    "SELECT g.* FROM asc_game g JOIN asc_player p ON g.gameid = p.gameid WHERE g.gameid = ?",
     [req.params.id]
   );
+  /*   const players = await db.pool.query(
+    "SELECT p.* FROM asc_player p WHERE p.gameId = ?",
+    [req.params.id]
+  ); */
+
   logger.info("Game with id " + req.params.id + " requested from ip: " + ip);
 
   let game = games.find(function (item) {
