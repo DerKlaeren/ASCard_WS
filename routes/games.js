@@ -56,6 +56,10 @@
  *           type: string
  *           format: date
  *           description: The date the game was added
+ *         player:
+ *           type: array
+ *           items:
+ *             $ref: "#/components/schemas/Player"
  *       example:
  *         gameid: 543
  *         ownerPlayerId: 2
