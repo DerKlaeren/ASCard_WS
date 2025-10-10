@@ -212,7 +212,7 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   var ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
   const games = await db.pool.query(
-    "SELECT * FROM asc_game g, asc_player p WHERE g.gameId = p.gameId AND g.gameId = ?",
+    "SELECT g.gameid, g.accessCode, p.name FROM asc_game g, asc_player p WHERE g.gameId = p.gameId AND g.gameId = ?",
     [req.params.id]
   );
   logger.info("Game with id " + req.params.id + " requested from ip: " + ip);
