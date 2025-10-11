@@ -17,6 +17,7 @@ var pool = mariadb.createPool({
   user: DB_USER,
   password: DB_PASSWORD,
   database: DATABASE,
+  checkDuplicate: false //Only unique constraints occur mostly with the same name so enabling it should be fine
 });
 
 /* logger.info("Host: " + DB_HOST);

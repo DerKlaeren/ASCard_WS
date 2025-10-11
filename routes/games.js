@@ -186,6 +186,8 @@ const router = express.Router();
 const SECRET_KEY = require("../secret");
 const verifyToken = require("../auth");
 
+const Game = require("../models/Game");
+
 router.get("/", async (req, res) => {
   //router.get("/", verifyToken, async (req, res) => {
 
@@ -266,6 +268,33 @@ router.get("/:id", async (req, res) => {
 
   game ? res.status(200).json(game) : res.sendStatus(404);
 });
+
+
+router.get("/:id/light", async (req, res) => {
+  var ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
+
+  // with ` its possible to create multi line comments/string
+  try {
+    const rows = await db.pool.query(
+    `SELECT * FROM asc_game 
+         LEFT JOIN asc_player 
+         ON asc_game.gameid = asc_player.gameid  
+         WHERE asc_game.gameid = ?;`,
+  [req.params.id]
+    );
+
+    // Convert the response into a usable object
+    const game = Game.parseFromRows(rows);
+
+    if (!game) return res.status(404).json({ message: "Game not found" });
+
+    res.json(game);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 
 router.post("/", async (req, res) => {
   const {
