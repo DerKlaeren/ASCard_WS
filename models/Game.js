@@ -19,16 +19,23 @@ class Game {
     }
 
     static parseFromRows(rows) {
-        if (!rows || rows.length === 0) return null;
-
         const game = new Game(rows[0]);
 
+        // Map für eindeutige Spieler (damit Spieler bei mehrfachen Units nicht dupliziert werden)
+        const playerMap = new Map();
+
         for (const row of rows) {
-            if (row.playerid) {
-                game.players.push(new Player(row));
+            if (!row.playerid) continue;
+
+            if (!playerMap.has(row.playerid)) {
+                playerMap.set(row.playerid, Player.fromRow(row));
             }
+
+            const player = playerMap.get(row.playerid);
+            player.addUnit(row);
         }
 
+        game.players = Array.from(playerMap.values());
         return game;
     }
 }
