@@ -277,19 +277,21 @@ router.get("/:id/light", async (req, res) => {
     try {
         const rows = await db.pool.query(
             `SELECT *
-             FROM asc_game
-              LEFT JOIN asc_player
-                ON asc_game.gameid = asc_player.gameid
-              LEFT JOIN asc_assign
-                ON asc_player.playerid = asc_assign.playerid
-              LEFT JOIN asc_unit
-                ON asc_assign.unitid = asc_unit.unitid
-              LEFT JOIN asc_unitstatus
-                ON asc_unit.unitid = asc_unitstatus.unitid
-                AND asc_game.gameid = asc_unitstatus.gameid
-              LEFT JOIN asc_pilot
-                ON asc_assign.pilotid = asc_pilot.pilotid
-             WHERE asc_game.gameid = ?;`,
+                     FROM asc_game
+                              LEFT JOIN asc_player
+                                        ON asc_game.gameid = asc_player.gameid
+                              LEFT JOIN asc_assign
+                                        ON asc_player.playerid = asc_assign.playerid
+                              LEFT JOIN asc_unit
+                                        ON asc_assign.unitid = asc_unit.unitid
+                              LEFT JOIN asc_formation
+                                        ON asc_assign.formationid  = asc_formation.formationid
+                              LEFT JOIN asc_unitstatus
+                                        ON asc_unit.unitid = asc_unitstatus.unitid
+                                            AND asc_game.gameid = asc_unitstatus.gameid
+                              LEFT JOIN asc_pilot
+                                        ON asc_assign.pilotid = asc_pilot.pilotid
+                     WHERE asc_game.gameid = ?;`,
             [req.params.id]
         );
 

@@ -2,12 +2,15 @@
 
 const UnitStatus = require('./UnitStatus');
 const Pilot = require('./Pilot');
+const Formation = require("./Formation");
 
 class Unit {
     constructor(data) {
         this.unitId = data.unitid;
         this.unit_name = data.unit_name;
+        this.type = data.as_tp;
         this.pilot = new Pilot(data); // 1zu1
+        this.formation = new Formation(data);
         this.unit_statuses = []; //1zu1
     }
 
