@@ -26,9 +26,9 @@ class Player {
     this.active_ingame = !!data.active_ingame;
     this.last_unit_opened = data.last_unit_opened;
     this.last_login = data.last_login;
-    this.units = [];
     this.faction = new Faction(data);
     this.command = new Command(data);
+    this.units = [];
   }
 
   static fromRow(row) {
