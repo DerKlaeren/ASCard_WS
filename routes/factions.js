@@ -73,8 +73,8 @@ const db = require("../db.js");
 const express = require("express");
 const router = express.Router();
 
-const SECRET_KEY = require("../secret");
-const verifyToken = require("../auth");
+const SECRET_KEY = require("../secret.js");
+const verifyToken = require("../auth.js");
 
 router.get("/", async (req, res) => {
   //router.get("/", verifyToken, async (req, res) => { 
