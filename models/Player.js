@@ -28,7 +28,6 @@ class Player {
     this.last_login = data.last_login;
     this.units = [];
     this.faction = new Faction(data);
-    this.command = new Command(data);
   }
 
   static fromRow(row) {
