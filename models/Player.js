@@ -1,4 +1,6 @@
 const Unit = require('./Unit');
+const Faction = require("./Faction");
+
 
 // models/Player.js
 class Player {
@@ -25,6 +27,7 @@ class Player {
         this.last_unit_opened = data.last_unit_opened;
         this.last_login = data.last_login;
         this.units = [];
+        this.faction = new Faction(data);
     }
 
     static fromRow(row) {
