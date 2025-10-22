@@ -289,6 +289,7 @@ router.get("/:id/light", async (req, res) => {
                               LEFT JOIN asc_unitstatus
                                         ON asc_unit.unitid = asc_unitstatus.unitid
                                             AND asc_game.gameid = asc_unitstatus.gameid
+                                            AND asc_player.round = asc_unitstatus.round
                               LEFT JOIN asc_pilot
                                         ON asc_assign.pilotid = asc_pilot.pilotid
                      WHERE asc_game.gameid = ?;`,
