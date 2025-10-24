@@ -275,7 +275,8 @@ router.get("/:id/light", async (req, res) => {
   // with ` its possible to create multi line comments/string
   try {
     const rows = await db.pool.query(
-      `SELECT *
+    `  SELECT *, 
+        asc_player.name as playerName
                      FROM asc_game
                               LEFT JOIN asc_player
                                         ON asc_game.gameid = asc_player.gameid
