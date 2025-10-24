@@ -6,7 +6,7 @@ const Command = require("./Command");
 class Player {
   constructor(data) {
     this.playerid = data.playerid;
-    this.name = data.name;
+    this.name = data.playerName;
     this.npc = !!data.npc;
     this.confirmed = !!data.confirmed;
     this.login_enabled = !!data.login_enabled;
